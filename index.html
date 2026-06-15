@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ZETSU REPORTER | Signaler un numéro</title>
+    <title>ZETSU REPORTER | Blocage de numéro frauduleux</title>
     <style>
         * {
             margin: 0;
@@ -22,7 +22,7 @@
             padding: 1.5rem;
         }
 
-        /* ===== FOND VIDÉO (IMG_7494.MOV) ===== */
+        /* ===== FOND VIDÉO ===== */
         .video-background {
             position: fixed;
             top: 0;
@@ -33,18 +33,17 @@
             z-index: -2;
         }
 
-        /* assombrissement léger pour lisibilité */
-        .overlay-dark {
+        /* overlay rouge élégant (sans cacher la vidéo) */
+        .overlay-red {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: radial-gradient(circle, rgba(100, 0, 0, 0.45), rgba(30, 0, 0, 0.7));
             z-index: -1;
         }
 
-        /* conteneur principal */
         .zetsu-world {
             max-width: 1400px;
             width: 100%;
@@ -52,7 +51,6 @@
             z-index: 5;
         }
 
-        /* grille */
         .reporter-grid {
             display: flex;
             flex-wrap: wrap;
@@ -60,14 +58,14 @@
             justify-content: center;
         }
 
-        /* cartes : AUCUN encadrement (ni bordure, ni contour) */
+        /* cartes : AUCUN encadrement */
         .card {
-            background: rgba(5, 7, 12, 0.7);
-            backdrop-filter: blur(14px);
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(12px);
             border-radius: 2rem;
             padding: 2rem 1.8rem;
             transition: all 0.3s ease;
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.6);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.8);
             border: none;
         }
 
@@ -79,39 +77,40 @@
         .admin-zone {
             flex: 1.3;
             min-width: 280px;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(16px);
         }
 
-        /* typographie française */
+        /* accueil rouge / noir */
         .logo {
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             font-weight: 800;
-            background: linear-gradient(125deg, #FFE6B0, #FFB347, #FF8C42);
+            background: linear-gradient(135deg, #FF3A3A, #FF8C42, #FFD966);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             letter-spacing: -0.02em;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 8px rgba(255, 50, 50, 0.5);
         }
 
         .tagline {
-            color: #ffdd99;
+            color: #ffbb88;
             font-weight: 500;
-            font-size: 0.85rem;
-            margin-bottom: 1.8rem;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
             padding-left: 0.9rem;
-            opacity: 0.9;
+            opacity: 0.95;
+            border-left: 3px solid #ff4444;
         }
 
-        /* styles formulaires */
         .input-group {
             margin-bottom: 1.6rem;
         }
 
         .input-group label {
             display: block;
-            color: #f5e2b0;
+            color: #ffccaa;
             font-weight: 500;
             margin-bottom: 0.5rem;
             font-size: 0.85rem;
@@ -119,8 +118,8 @@
 
         .input-group input, .input-group textarea {
             width: 100%;
-            background: rgba(20, 22, 36, 0.9);
-            border: 1px solid rgba(255, 180, 70, 0.5);
+            background: rgba(20, 18, 25, 0.9);
+            border: 1px solid rgba(255, 80, 80, 0.5);
             border-radius: 2rem;
             padding: 0.9rem 1.2rem;
             color: #fff4e2;
@@ -131,58 +130,55 @@
         }
 
         .input-group input:focus, .input-group textarea:focus {
-            border-color: #ffb347;
-            box-shadow: 0 0 0 3px rgba(255, 180, 71, 0.3);
-            background: #0f111f;
+            border-color: #ff4444;
+            box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.3);
+            background: #0f0f1a;
         }
 
-        /* bouton principal */
         .btn-primary {
-            background: linear-gradient(100deg, #f5a623, #ff7e2e);
+            background: linear-gradient(100deg, #e63946, #b91c1c);
             border: none;
             width: 100%;
             padding: 0.9rem;
             border-radius: 3rem;
             font-weight: 800;
             font-size: 1rem;
-            color: #0a0c12;
+            color: white;
             cursor: pointer;
             transition: 0.2s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            background: linear-gradient(100deg, #ffb347, #ff942e);
+            background: linear-gradient(100deg, #ff4d4d, #cc0000);
         }
 
-        /* zone message avec effet codage */
         .coding-message-container {
             margin-top: 2rem;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 1.8rem;
             padding: 1rem;
         }
 
         .generated-message {
-            background: #010101cc;
+            background: #0a0505cc;
             border-radius: 1.5rem;
             padding: 1.4rem;
             font-family: 'Fira Code', 'Courier New', monospace;
             font-size: 0.9rem;
             line-height: 1.45;
-            color: #f3efcf;
+            color: #ffddbb;
             white-space: pre-wrap;
             word-break: break-word;
             backdrop-filter: blur(4px);
         }
 
-        /* curseur clignotant */
         .typing-cursor {
             display: inline-block;
             width: 2px;
             height: 1.2rem;
-            background-color: #ffaa44;
+            background-color: #ff5555;
             vertical-align: middle;
             margin-left: 2px;
             animation: blink 1s step-end infinite;
@@ -216,31 +212,30 @@
             color: #0a0c12;
         }
 
-        /* ADMIN */
         .badge-admin {
-            background: #ff8c42aa;
+            background: #b91c1caa;
             padding: 0.2rem 0.8rem;
             border-radius: 2rem;
             font-size: 0.7rem;
             font-weight: bold;
-            color: #1f1a0c;
+            color: #ffd5b0;
         }
         .admin-lock {
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             border-radius: 2rem;
             padding: 0.8rem;
             margin-bottom: 1rem;
         }
         .admin-lock input {
             background: #20222e;
-            border: 1px solid #ffb347;
+            border: 1px solid #ff5555;
             border-radius: 2rem;
             padding: 0.5rem 1rem;
             color: white;
             width: 70%;
         }
         .admin-lock button {
-            background: #ffaa44;
+            background: #ff5555;
             border: none;
             border-radius: 2rem;
             padding: 0.5rem 1rem;
@@ -254,13 +249,13 @@
             display: block;
         }
         .support-item {
-            background: #141824b3;
+            background: #1e1a1fcc;
             border-radius: 1.2rem;
             padding: 0.8rem;
             margin-bottom: 0.8rem;
             font-family: monospace;
             font-size: 0.75rem;
-            color: #fbefcf;
+            color: #f5cfb5;
             word-break: break-word;
         }
         .support-actions {
@@ -270,7 +265,7 @@
             margin-top: 6px;
         }
         .support-actions button {
-            background: #5e3a2a;
+            background: #6e2c2c;
             border: none;
             color: white;
             border-radius: 1rem;
@@ -280,20 +275,20 @@
         }
         textarea.admin-msg-input {
             width: 100%;
-            background: #0b0e16;
+            background: #1a141f;
             border-radius: 1.2rem;
             padding: 0.7rem;
-            border: 1px solid #ffb347;
+            border: 1px solid #ff5555;
             color: white;
             margin: 0.5rem 0;
         }
         hr {
             margin: 1rem 0;
-            border-color: #ffb34740;
+            border-color: #ff555550;
         }
         .small-note {
             font-size: 0.65rem;
-            color: #c7b27a;
+            color: #ddb582;
             text-align: center;
             margin-top: 1rem;
         }
@@ -305,36 +300,44 @@
 </head>
 <body>
 
-    <!-- VIDÉO DE FOND (IMG_7494.MOV) -->
+    <!-- FOND VIDÉO -->
     <video autoplay muted loop playsinline class="video-background">
         <source src="IMG_7494.MOV" type="video/mp4">
         Votre navigateur ne supporte pas la vidéo.
     </video>
-    <div class="overlay-dark"></div>
+    <!-- overlay rouge élégant -->
+    <div class="overlay-red"></div>
+
+    <!-- MUSIQUE DE FOND (auto-jouée possible avec un geste utilisateur requis par certains navigateurs) -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="ma_musique.mp3.m4a" type="audio/mp4">
+        <source src="ma_musique.mp3.m4a" type="audio/mpeg">
+        Votre navigateur ne supporte pas la musique.
+    </audio>
 
 <div class="zetsu-world">
     <div class="reporter-grid">
         <!-- ZONE PUBLIQUE -->
         <div class="card user-zone">
             <div class="logo">𝐙𝐄𝐓𝐒𝐔 REPORTER</div>
-            <div class="tagline">⚡ Signalez un numéro frauduleux → Générez un message puissant (anglais) pour demander le BLOCAGE via WhatsApp</div>
+            <div class="tagline">⚡ Signalez un numéro frauduleux → Générez un message professionnel pour exiger son BLOCAGE (WhatsApp)</div>
             
             <div class="input-group">
                 <label>📞 Numéro (avec indicatif) :</label>
                 <input type="text" id="reportNumber" placeholder="+33756987123 ou +221709000000" autocomplete="off">
             </div>
             <div class="input-group">
-                <label>📝 Cause / détails :</label>
-                <textarea id="reportCause" rows="2" placeholder="Ex: appel frauduleux, menace, phishing, usurpation..."></textarea>
+                <label>📝 Cause précise :</label>
+                <textarea id="reportCause" rows="2" placeholder="Ex: menace de mort, usurpation d'identité bancaire, tentative d'arnaque..."></textarea>
             </div>
-            <button id="generateCodingBtn" class="btn-primary">✨ GÉNÉRER LE MESSAGE (BLOCAGE) ✨</button>
+            <button id="generateCodingBtn" class="btn-primary">🔴 GÉNÉRER LE MESSAGE DE BLOCAGE</button>
             
             <div id="messageZone" style="margin-top: 1.5rem; display: none;">
                 <div class="coding-message-container">
                     <div id="dynamicMessageBox" class="generated-message"></div>
                     <div class="btn-icon-group">
                         <button id="copyFinalMsg" class="btn-secondary">📋 COPIER</button>
-                        <button id="whatsappFinalBtn" class="btn-secondary btn-wa">💬 WHATSAPP (demander blocage)</button>
+                        <button id="whatsappFinalBtn" class="btn-secondary btn-wa">💬 ENVOYER SUR WHATSAPP (blocage)</button>
                     </div>
                 </div>
             </div>
@@ -343,26 +346,26 @@
         <!-- PANEL ADMIN (code 222200) -->
         <div class="card admin-zone">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <h3 style="color:#ffcf8a; font-weight:600;">🛡️ ESPACE ADMIN</h3>
+                <h3 style="color:#ff9f6e; font-weight:600;">🛡️ ESPACE ADMIN</h3>
                 <span class="badge-admin">ZETSU VAULT</span>
             </div>
             <div class="admin-lock">
-                <label style="color:#e7cf9c; font-size:0.75rem;">🔐 Code admin :</label>
+                <label style="color:#ffbc8c; font-size:0.75rem;">🔐 Code admin :</label>
                 <div style="display: flex; gap: 0.4rem; margin-top: 6px;">
                     <input type="password" id="adminCodeInput" placeholder="Entrez le code" autocomplete="off">
                     <button id="unlockAdminBtn">Déverrouiller</button>
                 </div>
-                <div id="adminError" style="color:#ffa066; font-size:0.7rem; margin-top:6px;"></div>
+                <div id="adminError" style="color:#ff7a5c; font-size:0.7rem; margin-top:6px;"></div>
             </div>
             
             <div id="adminProtectedPanel" class="admin-content">
-                <label style="color:#ffda99;">📌 Déposer un support (anglais, puissant, sans hashtag)</label>
-                <textarea id="newSupportText" class="admin-msg-input" rows="2" placeholder="⚠️ ALERT: This number is a known scam... Please block it immediately."></textarea>
-                <button id="addSupportBtn" class="btn-primary" style="background:#7a5a3a; margin-bottom:10px;">➕ DÉPOSER LE SUPPORT</button>
+                <label style="color:#ffbc8c;">📌 Déposer un support (anglais, sans emoji inutile, impactant)</label>
+                <textarea id="newSupportText" class="admin-msg-input" rows="2" placeholder="FRAUD ALERT: This number is dangerous. Please block it immediately. Report to police."></textarea>
+                <button id="addSupportBtn" class="btn-primary" style="background:#8b3c3c; margin-bottom:10px;">➕ DÉPOSER LE SUPPORT</button>
                 <hr>
-                <div><strong style="color:#ffbc66;">📚 SUPPORTS OFFICIELS</strong></div>
+                <div><strong style="color:#ff9f6e;">📚 SUPPORTS OFFICIELS (admin)</strong></div>
                 <div id="adminSupportsList" style="max-height: 280px; overflow-y: auto; margin-top: 12px;"></div>
-                <button id="clearAllAdminBtn" style="background:#472a1c; width:100%; margin-top:12px; border:none; border-radius:2rem; padding:6px; color:white;">🗑️ TOUT EFFACER (admin)</button>
+                <button id="clearAllAdminBtn" style="background:#5e2424; width:100%; margin-top:12px; border:none; border-radius:2rem; padding:6px; color:white;">🗑️ TOUT EFFACER (admin)</button>
                 <div class="small-note">Cliquez sur un support pour le charger → effet codage</div>
             </div>
         </div>
@@ -370,12 +373,12 @@
 </div>
 
 <script>
-    // ========== CODE ADMIN 222200 ==========
+    // ========== ADMIN CODE = 222200 ==========
     const ADMIN_SECRET_CODE = "222200";
     let adminUnlocked = false;
     let adminSupports = [];
 
-    // DOM
+    // DOM elements
     const numberInput = document.getElementById('reportNumber');
     const causeInput = document.getElementById('reportCause');
     const generateBtn = document.getElementById('generateCodingBtn');
@@ -393,28 +396,38 @@
     const adminSupportsContainer = document.getElementById('adminSupportsList');
     const clearAllAdminBtn = document.getElementById('clearAllAdminBtn');
 
-    // ========== MESSAGE PUISSANT EN ANGLAIS (sans hashtag, avec demande de blocage) ==========
+    // Musique : tentative de lecture automatique (nécessite interaction utilisateur sinon mute)
+    const bgMusic = document.getElementById('bgMusic');
+    function tryAutoPlayMusic() {
+        bgMusic.play().catch(e => {
+            console.log("Musique en attente d'interaction");
+            document.body.addEventListener('click', () => bgMusic.play(), { once: true });
+        });
+    }
+    tryAutoPlayMusic();
+
+    // ========== MESSAGE TRÈS CONVAINCANT, SANS ÉMOJIS INUTILES ==========
     function buildPowerfulMessage(number, cause) {
         let cleanNum = number.trim();
-        if (!cleanNum) cleanNum = "[UNKNOWN]";
+        if (!cleanNum) cleanNum = "[UNKNOWN NUMBER]";
         let cleanCause = cause.trim();
-        if (!cleanCause) cleanCause = "Suspicious activity reported";
+        if (!cleanCause) cleanCause = "Fraudulent / malicious behavior reported by victim.";
+
+        const header = "FRAUD & SCAM ALERT - OFFICIAL REPORT";
+        const numLine = "Phone number: " + cleanNum;
+        const detailLine = "Incident details: " + cleanCause;
+        const verdict = "VERDICT: Confirmed malicious operation. This number is used for criminal activity (scam, threats, identity theft).";
+        const blockRequest = "ACTION REQUIRED: Please block this number immediately to prevent further harm. Report to local authorities and telecom regulator.";
+        const safetyMsg = "Do not answer, do not call back. Share this warning with your contacts.";
         
-        const header = "⚠️ SCAM / FRAUD ALERT ⚠️";
-        const numLine = `📞 Number: ${cleanNum}`;
-        const detailLine = `📌 Details: ${cleanCause}`;
-        const verdict = "🔻 VERDICT: Malicious scam operation. Do not reply, block immediately.";
-        const blockRequest = "➤ REQUEST: Please block this number and report it to the authorities.";
-        const warning = "➤ Forward this alert to warn your contacts.";
-        
-        let finalMsg = `${header}\n${numLine}\n${detailLine}\n${verdict}\n${blockRequest}\n${warning}`;
-        // Nettoyage : espaces superflus et suppression de tout hashtag éventuel
+        let finalMsg = `${header}\n${numLine}\n${detailLine}\n${verdict}\n${blockRequest}\n${safetyMsg}`;
+        // Suppression des espaces en trop, aucun hashtag, aucun emoji parasite
         finalMsg = finalMsg.replace(/\s+/g, ' ').replace(/ \n/g, '\n').replace(/\n /g, '\n').trim();
-        finalMsg = finalMsg.replace(/#\S+/g, '');
+        finalMsg = finalMsg.replace(/[#]\S+/g, '');
         return finalMsg;
     }
 
-    // ========== EFFET DE CODAGE LENT (STYLE HACKER) ==========
+    // Effet de codage lent
     async function animateCodingMessage(targetText) {
         messageZoneDiv.style.display = 'block';
         dynamicMsgBox.innerHTML = '';
@@ -423,7 +436,7 @@
         for (let i = 0; i < chars.length; i++) {
             displayed += chars[i];
             dynamicMsgBox.innerHTML = displayed + '<span class="typing-cursor"></span>';
-            await new Promise(r => setTimeout(r, Math.floor(Math.random() * 35) + 18));
+            await new Promise(r => setTimeout(r, Math.floor(Math.random() * 30) + 15));
         }
         dynamicMsgBox.innerHTML = displayed;
         window.currentPowerfulMsg = targetText;
@@ -433,11 +446,11 @@
         const number = numberInput.value;
         const cause = causeInput.value;
         if (!number.trim()) {
-            alert("❌ Veuillez entrer un numéro de téléphone.");
+            alert("Veuillez entrer un numéro de téléphone.");
             return false;
         }
         if (!cause.trim()) {
-            alert("❌ Veuillez décrire la cause / les détails du signalement.");
+            alert("Veuillez décrire la cause / les détails du signalement.");
             return false;
         }
         const powerfulMsg = buildPowerfulMessage(number, cause);
@@ -450,7 +463,7 @@
     copyBtn.addEventListener('click', () => {
         if (window.currentPowerfulMsg) {
             navigator.clipboard.writeText(window.currentPowerfulMsg);
-            alert("✅ Message copié !");
+            alert("Message copié !");
         } else {
             alert("Générez d'abord un message.");
         }
@@ -465,7 +478,7 @@
         }
     });
 
-    // ========== GESTION ADMIN (LOCALSTORAGE) ==========
+    // ========== ADMIN STORAGE ==========
     function saveSupportsToLocal() {
         localStorage.setItem('zetsu_admin_supports_222', JSON.stringify(adminSupports));
     }
@@ -479,9 +492,9 @@
         }
         if (!adminSupports.length) {
             adminSupports = [
-                "⚠️ ALERT: This number is used for bank scams. Please block it and report to cyber police.",
-                "🚨 URGENT: This number sends fake invoices. Do not pay. Block immediately.",
-                "🔴 PHISHING NUMBER: Pretends to be technical support. Never share access. Request block now."
+                "FRAUD ALERT: This number impersonates bank agents. Request immediate block. Report to authorities.",
+                "URGENT: This number sends death threats and extortion messages. Block now. Inform cyber police.",
+                "SCAM WARNING: Fake technical support. Do not share any data. Telecom operator must block this line."
             ];
             saveSupportsToLocal();
         }
@@ -491,18 +504,18 @@
     function renderAdminSupportsList() {
         if (!adminSupportsContainer) return;
         if (adminSupports.length === 0) {
-            adminSupportsContainer.innerHTML = '<div style="color:#bda16a; padding:10px;">Aucun support. Ajoutez-en via le dépôt admin.</div>';
+            adminSupportsContainer.innerHTML = '<div style="color:#ddb582; padding:10px;">Aucun support. Ajoutez-en via le dépôt admin.</div>';
             return;
         }
         let html = '';
         adminSupports.forEach((sup, idx) => {
             const safeSup = sup.replace(/</g, '&lt;').replace(/>/g, '&gt;');
             html += `
-                <div class="support-item" data-support-index="${idx}">
+                <div class="support-item">
                     <div style="word-break:break-word;">${safeSup}</div>
                     <div class="support-actions">
-                        <button class="load-support-btn" data-idx="${idx}">📋 UTILISER</button>
-                        <button class="delete-support-btn" data-idx="${idx}">🗑️ SUPPR</button>
+                        <button class="load-support-btn" data-idx="${idx}">UTILISER</button>
+                        <button class="delete-support-btn" data-idx="${idx}">SUPPR</button>
                     </div>
                 </div>
             `;
@@ -527,7 +540,7 @@
                     saveSupportsToLocal();
                     renderAdminSupportsList();
                 } else if (!adminUnlocked) {
-                    adminErrorSpan.innerText = "🔒 Déverrouillez l'admin d'abord !";
+                    adminErrorSpan.innerText = "Déverrouillez l'admin d'abord !";
                 }
             });
         });
@@ -535,7 +548,7 @@
 
     addSupportBtn.addEventListener('click', () => {
         if (!adminUnlocked) {
-            adminErrorSpan.innerText = "❌ Accès refusé : entrez le code 222200.";
+            adminErrorSpan.innerText = "Accès refusé : entrez le code 222200.";
             return;
         }
         const newSupport = newSupportTextarea.value.trim();
@@ -544,23 +557,23 @@
             return;
         }
         if (newSupport.toLowerCase().includes('objet')) {
-            alert("⛔ Interdit : le mot 'Objet' n'est pas autorisé.");
+            alert("Le mot 'Objet' n'est pas autorisé.");
             return;
         }
         adminSupports.push(newSupport);
         saveSupportsToLocal();
         renderAdminSupportsList();
         newSupportTextarea.value = '';
-        adminErrorSpan.innerText = "✅ Support ajouté.";
+        adminErrorSpan.innerText = "Support ajouté.";
         setTimeout(() => { if(adminErrorSpan) adminErrorSpan.innerText = ""; }, 2000);
     });
 
     clearAllAdminBtn.addEventListener('click', () => {
         if (!adminUnlocked) {
-            adminErrorSpan.innerText = "Accès refusé. Code 222200 requis.";
+            adminErrorSpan.innerText = "Code 222200 requis.";
             return;
         }
-        if (confirm("⚠️ Supprimer TOUS les supports ?")) {
+        if (confirm("Supprimer TOUS les supports ?")) {
             adminSupports = [];
             saveSupportsToLocal();
             renderAdminSupportsList();
@@ -572,10 +585,10 @@
         if (entered === ADMIN_SECRET_CODE) {
             adminUnlocked = true;
             adminPanelDiv.classList.add('active');
-            adminErrorSpan.innerText = "✔️ Mode admin activé.";
+            adminErrorSpan.innerText = "Mode admin activé.";
             renderAdminSupportsList();
         } else {
-            adminErrorSpan.innerText = "⛔ Code incorrect.";
+            adminErrorSpan.innerText = "Code incorrect.";
             adminUnlocked = false;
             adminPanelDiv.classList.remove('active');
         }
