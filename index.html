@@ -1,600 +1,654 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ZETSU REPORTER | Signal a number, get powerful support</title>
+    <title>ZETSU REPORTER | Générateur de signalement puissant</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none; /* optional slight sleekness, but text can be selected */
         }
 
         body {
-            font-family: 'Segoe UI', 'Roboto', 'Poppins', system-ui, -apple-system, 'Inter', sans-serif;
-            background: #0a0c12;
+            font-family: 'Poppins', 'Segoe UI', 'Inter', system-ui, sans-serif;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            background: #05070a;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
         }
 
-        /* MAIN BACKGROUND: TOBIRAMA + JOYBOY (very clear & visible) */
+        /* ===== FOND TOBIRAMA & JOYBOY - TRÈS CLAIR ET VISIBLE ===== */
         body::before {
             content: "";
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://i.ibb.co/2yzXmZ8/tobirama-joyboy-bg.png'), 
-            linear-gradient(135deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.6) 100%);
-            background-size: cover, auto;
-            background-position: center 30%, 0 0;
-            background-repeat: no-repeat, repeat;
-            background-blend-mode: overlay;
+            inset: 0;
+            background: url('https://i.pinimg.com/originals/7c/5b/6b/7c5b6b3f5a2b1c8e9d4f7a2b8c3d5e6f.jpg') no-repeat center center/cover;
+            background-size: cover;
+            filter: brightness(0.85) contrast(1.05);
             z-index: -2;
         }
-
-        /* fallback gradient in case image fails — but we keep vivid double exposure */
+        
+        /* Fallback fusion épique : Tobirama + Joyboy en double exposition si l'image ne charge pas */
         body::after {
             content: "";
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 30%, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+            inset: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%),
+                        url('https://images.hdqwalls.com/wallpapers/gear-5-luffy-joy-boy-4k-r8.jpg') no-repeat center/cover,
+                        url('https://wallpapercave.com/wp/wp6601070.jpg') no-repeat center/cover;
+            background-blend-mode: overlay;
+            background-size: cover, cover, cover;
+            background-position: center, 30% 20%, 70% 80%;
+            opacity: 0.7;
             z-index: -1;
             pointer-events: none;
         }
 
-        /* main card container */
-        .app-container {
-            max-width: 1300px;
+        /* conteneur global */
+        .zetsu-world {
+            max-width: 1400px;
             width: 100%;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* grille principale */
+        .reporter-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 28px;
+            gap: 2rem;
             justify-content: center;
-            backdrop-filter: blur(1px);
         }
 
-        /* panels */
-        .panel {
-            background: rgba(10, 14, 23, 0.85);
+        /* Panels : fond transparent mais lisible, SANS encadrement lourd (pas de border solide, pas de bordure agressive) */
+        .card {
+            background: rgba(5, 7, 12, 0.65);
             backdrop-filter: blur(12px);
-            border-radius: 48px;
-            padding: 28px 26px;
-            box-shadow: 0 25px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,215,0,0.2);
-            transition: 0.25s ease;
-            border: 1px solid rgba(255, 200, 50, 0.3);
+            border-radius: 2rem;
+            padding: 2rem 1.8rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+            border: none;
         }
 
-        .user-panel {
-            flex: 2;
+        .user-zone {
+            flex: 2.2;
             min-width: 300px;
         }
 
-        .admin-panel {
-            flex: 1.4;
-            min-width: 300px;
-            background: rgba(0, 0, 0, 0.75);
+        .admin-zone {
+            flex: 1.3;
+            min-width: 280px;
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(16px);
-            border-left: 4px solid #f5b042;
         }
 
-        /* titles & branding */
-        .brand {
-            font-size: 2rem;
+        /* typographie élégante */
+        .logo {
+            font-size: 2.5rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #FFE6B0, #FFB347);
+            background: linear-gradient(125deg, #FFE6B0, #FFB347, #FF8C42);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            margin-bottom: 8px;
-            display: inline-block;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+            margin-bottom: 0.3rem;
         }
 
-        .sub {
-            color: #ddd9ce;
-            font-size: 0.85rem;
-            border-left: 3px solid #f5b042;
-            padding-left: 12px;
-            margin-bottom: 24px;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #ffda88;
-            margin-bottom: 18px;
-            border-bottom: 2px dashed #ffb74d;
-            display: inline-block;
-        }
-
-        /* form elements */
-        label {
-            display: block;
-            color: #f0e6d0;
+        .tagline {
+            color: #ffdd99;
             font-weight: 500;
-            margin: 18px 0 6px 0;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            margin-bottom: 1.8rem;
+            border-left: 3px solid #ffaa44;
+            padding-left: 0.9rem;
+            opacity: 0.9;
         }
 
-        input, textarea {
+        /* labels flottants modernes */
+        .input-group {
+            margin-bottom: 1.6rem;
+        }
+
+        .input-group label {
+            display: block;
+            color: #f5e2b0;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+        }
+
+        .input-group input, .input-group textarea {
             width: 100%;
-            background: #1e1f2c;
-            border: 1px solid #3e3f55;
-            border-radius: 28px;
-            padding: 14px 20px;
-            color: white;
-            font-size: 1rem;
-            font-family: monospace;
-            transition: 0.2s;
-            outline: none;
-        }
-
-        input:focus, textarea:focus {
-            border-color: #f5b042;
-            box-shadow: 0 0 0 2px rgba(245,176,66,0.3);
-        }
-
-        textarea {
-            border-radius: 24px;
-            resize: vertical;
-            font-family: 'Courier New', monospace;
-        }
-
-        button {
-            background: linear-gradient(95deg, #f5b042, #e68a2e);
-            border: none;
-            color: #0a0c12;
-            font-weight: bold;
-            padding: 12px 18px;
-            border-radius: 60px;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 20px;
-            width: 100%;
-            transition: 0.2s;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        button:hover {
-            background: linear-gradient(95deg, #ffc107, #ff9f2e);
-            transform: scale(0.98);
-            box-shadow: 0 2px 6px black;
-        }
-
-        .generated-area {
-            margin-top: 28px;
-            background: #0b0e16b3;
-            border-radius: 32px;
-            padding: 18px;
-            border: 1px solid #ffcc66;
-        }
-
-        .message-box {
-            background: #000000aa;
-            border-radius: 24px;
-            padding: 20px;
-            font-family: 'SF Mono', 'Courier New', monospace;
+            background: rgba(20, 22, 36, 0.8);
+            border: 1px solid rgba(255, 180, 70, 0.5);
+            border-radius: 2rem;
+            padding: 0.9rem 1.2rem;
+            color: #fff4e2;
             font-size: 0.95rem;
-            color: #f5f2e0;
+            font-family: 'Courier New', monospace;
+            transition: all 0.25s;
+            outline: none;
+            resize: vertical;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: #ffb347;
+            box-shadow: 0 0 0 3px rgba(255, 180, 71, 0.3);
+            background: #0f111f;
+        }
+
+        /* bouton principal */
+        .btn-primary {
+            background: linear-gradient(100deg, #f5a623, #ff7e2e);
+            border: none;
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 3rem;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #0a0c12;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.4);
+            background: linear-gradient(100deg, #ffb347, #ff942e);
+        }
+
+        /* zone d'affichage du message avec EFFET CODAGE */
+        .coding-message-container {
+            margin-top: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 1.8rem;
+            padding: 1rem;
+            transition: all 0.2s;
+        }
+
+        .generated-message {
+            background: #010101aa;
+            border-radius: 1.5rem;
+            padding: 1.4rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            color: #f3efcf;
             white-space: pre-wrap;
             word-break: break-word;
-            border-left: 6px solid #ffaa33;
-            margin-bottom: 16px;
-            max-height: 280px;
-            overflow-y: auto;
+            backdrop-filter: blur(4px);
+            border-left: 4px solid #ffaa44;
+            transition: all 0.2s;
         }
 
-        .copy-btn, .whatsapp-btn {
-            background: #25D366;
-            margin-top: 8px;
+        /* effet de clignotement / curseur pendant le "codage" */
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2rem;
+            background-color: #ffaa44;
+            vertical-align: middle;
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .btn-icon-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 1rem;
+        }
+
+        .btn-secondary {
+            background: #2c2e3e;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            color: #ffdd99;
+            cursor: pointer;
+            flex: 1;
+            transition: 0.2s;
+        }
+
+        .btn-wa {
             background: #25D366;
             color: #0a0c12;
-            font-weight: bold;
         }
 
-        .whatsapp-btn {
-            background: #128C7E;
-            margin-left: 8px;
+        .btn-secondary:hover {
+            filter: brightness(1.1);
+            transform: scale(0.98);
         }
 
-        .flex-btns {
+        /* ADMIN VAULT */
+        .admin-header {
             display: flex;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
         }
-
-        /* admin stuff */
-        .admin-msg-list {
-            max-height: 380px;
-            overflow-y: auto;
-            margin-top: 20px;
-            background: #00000066;
-            border-radius: 28px;
-            padding: 6px;
+        .badge-admin {
+            background: #ff8c42aa;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #1f1a0c;
         }
-
-        .support-card {
-            background: #1f212e;
-            border-radius: 20px;
-            padding: 12px 14px;
-            margin-bottom: 12px;
-            font-size: 0.8rem;
-            border-right: 3px solid #ffb042;
+        .admin-lock {
+            background: rgba(0,0,0,0.5);
+            border-radius: 2rem;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
         }
-
-        .support-card p {
-            color: #e9e2c7;
-            word-break: break-word;
+        .admin-lock input {
+            background: #20222e;
+            border: 1px solid #ffb347;
+            border-radius: 2rem;
+            padding: 0.5rem 1rem;
+            color: white;
+            width: 70%;
+        }
+        .admin-lock button {
+            background: #ffaa44;
+            border: none;
+            border-radius: 2rem;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .admin-content {
+            display: none;
+            transition: 0.2s;
+        }
+        .admin-content.active {
+            display: block;
+        }
+        .support-item {
+            background: #141824b3;
+            border-radius: 1.2rem;
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
             font-family: monospace;
             font-size: 0.75rem;
+            color: #fbefcf;
+            word-break: break-word;
+            border-right: 2px solid #f5a623;
         }
-
-        .support-card small {
-            color: #ffbc6e;
-            display: block;
+        .support-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
             margin-top: 6px;
         }
-
-        .admin-input-area {
-            margin-top: 10px;
+        .support-actions button {
+            background: #5e3a2a;
+            border: none;
+            color: white;
+            border-radius: 1rem;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.65rem;
+            cursor: pointer;
         }
-
-        .delete-admin-btn {
-            background: #8b3c2c;
-            margin-top: 8px;
-            font-size: 0.7rem;
-            padding: 5px;
+        textarea.admin-msg-input {
+            width: 100%;
+            background: #0b0e16;
+            border-radius: 1.2rem;
+            padding: 0.7rem;
+            border: 1px solid #ffb347;
+            color: white;
+            margin: 0.5rem 0;
         }
-
         hr {
-            margin: 20px 0;
-            border-color: #ffb34730;
+            margin: 1rem 0;
+            border-color: #ffb34740;
         }
-
-        @media (max-width: 780px) {
-            .panel {
-                padding: 20px;
-            }
-            .brand {
-                font-size: 1.6rem;
-            }
+        .small-note {
+            font-size: 0.65rem;
+            color: #c7b27a;
+            text-align: center;
+            margin-top: 1rem;
         }
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #2c2f3a;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #f5b042;
-            border-radius: 10px;
+        @media (max-width: 850px) {
+            .card { padding: 1.5rem; }
+            .logo { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
-
-<div class="app-container">
-    <!-- PUBLIC PANEL: user reports number + details => generates powerful support message (English, no extra spaces, no 'Objet verso') -->
-    <div class="panel user-panel">
-        <div>
-            <span class="brand">⚡ 𝐙𝐄𝐓𝐒𝐔 REPORTER</span>
-            <div class="sub">Report a scammer / spam number — get instant powerful support message (English) ready to copy & send via WhatsApp.</div>
-        </div>
-
-        <label>📞 Phone number (with country code):</label>
-        <input type="text" id="phoneNumber" placeholder="+1234567890" value="+44123456789">
-
-        <label>📝 Additional details (what happened?):</label>
-        <textarea id="details" rows="3" placeholder="Example: fake bank call, demanded OTP, threatened me..."></textarea>
-
-        <button id="generateBtn">⚡ GENERATE POWERFUL SUPPORT MSG</button>
-
-        <div class="generated-area" id="generatedArea" style="display: none;">
-            <div class="message-box" id="supportMessageBox"></div>
-            <div class="flex-btns">
-                <button id="copyMsgBtn" class="copy-btn">📋 COPY MESSAGE</button>
-                <button id="whatsappBtn" class="whatsapp-btn">📲 SEND VIA WHATSAPP</button>
+<div class="zetsu-world">
+    <div class="reporter-grid">
+        <!-- PARTIE PUBLIQUE : signalement + génération codée -->
+        <div class="card user-zone">
+            <div class="logo">𝐙𝐄𝐓𝐒𝐔 REPORTER</div>
+            <div class="tagline">⚡ Signalez un numéro frauduleux → Générez un message puissant (anglais) prêt à copier & envoyer sur WhatsApp</div>
+            
+            <div class="input-group">
+                <label>📞 Numéro (avec indicatif) :</label>
+                <input type="text" id="reportNumber" placeholder="+33756987123 ou +1234567890" autocomplete="off">
+            </div>
+            <div class="input-group">
+                <label>📝 Cause / détails :</label>
+                <textarea id="reportCause" rows="2" placeholder="Ex: appel frauduleux, phishing, menace, usurpation d'identité..."></textarea>
+            </div>
+            <button id="generateCodingBtn" class="btn-primary">✨ GÉNÉRER LE MESSAGE PUISSANT ✨</button>
+            
+            <!-- Zone où le message apparait avec animation de codage -->
+            <div id="messageZone" style="margin-top: 1.5rem; display: none;">
+                <div class="coding-message-container">
+                    <div id="dynamicMessageBox" class="generated-message"></div>
+                    <div class="btn-icon-group">
+                        <button id="copyFinalMsg" class="btn-secondary">📋 COPIER</button>
+                        <button id="whatsappFinalBtn" class="btn-secondary btn-wa">💬 WHATSAPP</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- ADMIN PANEL: only admin can deposit (post) pre-made support templates / powerful messages -->
-    <div class="panel admin-panel">
-        <h3>🛡️ ADMIN VAULT</h3>
-        <div class="sub">( Only Zetsu admins ) Deposit powerful pre-built supports. Users can also see them & reuse? Actually admin uploads static powerful templates that appear below. Plus you (admin) can add new ones directly.</div>
-        
-        <div class="admin-input-area">
-            <label>✍️ Add new powerful support (English, compact, no extra spaces, no Objet verso):</label>
-            <textarea id="adminSupportText" rows="3" placeholder="⚠️ SCAM ALERT: number +XX ... DO NOT ENGAGE. Block & report immediately. This number impersonates ..."></textarea>
-            <button id="addSupportBtn">➕ DEPLOY SUPPORT (ADMIN ONLY)</button>
+        <!-- PANEL ADMIN (protégé par code 222200) -->
+        <div class="card admin-zone">
+            <div class="admin-header">
+                <h3 style="color:#ffcf8a; font-weight:600;">🛡️ ESPACE ADMIN</h3>
+                <span class="badge-admin">ZETSU VAULT</span>
+            </div>
+            <div class="admin-lock">
+                <label style="color:#e7cf9c; font-size:0.75rem;">🔐 Code admin :</label>
+                <div style="display: flex; gap: 0.4rem; margin-top: 6px;">
+                    <input type="password" id="adminCodeInput" placeholder="Entrez le code" autocomplete="off">
+                    <button id="unlockAdminBtn">Déverrouiller</button>
+                </div>
+                <div id="adminError" style="color:#ffa066; font-size:0.7rem; margin-top:6px;"></div>
+            </div>
+            
+            <div id="adminProtectedPanel" class="admin-content">
+                <label style="color:#ffda99;">📌 Déposer un support prêt à l'emploi (anglais, puissant, sans objet)</label>
+                <textarea id="newSupportText" class="admin-msg-input" rows="2" placeholder="⚠️ ALERT: This number is a known scam..."></textarea>
+                <button id="addSupportBtn" class="btn-primary" style="background:#7a5a3a; margin-bottom:10px;">➕ DÉPOSER LE SUPPORT</button>
+                <hr>
+                <div><strong style="color:#ffbc66;">📚 SUPPORTS OFFICIELS (admin)</strong></div>
+                <div id="adminSupportsList" style="max-height: 280px; overflow-y: auto; margin-top: 12px;"></div>
+                <button id="clearAllAdminBtn" style="background:#472a1c; width:100%; margin-top:12px; border:none; border-radius:2rem; padding:6px; color:white;">🗑️ TOUT EFFACER (admin)</button>
+                <div class="small-note">Cliquez sur un support pour le charger instantanément → génération codée</div>
+            </div>
         </div>
-        
-        <hr>
-        <div><strong style="color:#ffbc6e;">📚 PRE-DEPLOYED POWERFUL SUPPORTS</strong><br><span style="font-size:12px; color:#bba98a;">(click any to use as base or just copy for reporting)</span></div>
-        <div id="adminSupportsList" class="admin-msg-list">
-            <!-- dynamically listed admin supports -->
-        </div>
-        <button id="clearAllSupportsBtn" class="delete-admin-btn" style="background:#5e2a1e;">⚠️ CLEAR ALL SUPPORTS (ADMIN)</button>
-        <p style="font-size:10px; margin-top:15px; color:#ad9b70;">🔒 Admin only zone — any visitor can view but only you (admin) can add/delete. Pre-stocked with 3 solid templates.</p>
     </div>
 </div>
 
 <script>
-    // --------------------------------------------------------------
-    // STORAGE KEYS: supports array for admin deposited messages
-    // PUBLIC generates based on user input + extra dynamic powerful text
-    // --------------------------------------------------------------
+    // ======================= CONFIGURATION ========================
+    const ADMIN_SECRET_CODE = "222200";
+    let adminUnlocked = false;
     let adminSupports = [];
 
-    // Load from localStorage
+    // Éléments DOM
+    const numberInput = document.getElementById('reportNumber');
+    const causeInput = document.getElementById('reportCause');
+    const generateBtn = document.getElementById('generateCodingBtn');
+    const messageZoneDiv = document.getElementById('messageZone');
+    const dynamicMsgBox = document.getElementById('dynamicMessageBox');
+    const copyBtn = document.getElementById('copyFinalMsg');
+    const whatsappBtn = document.getElementById('whatsappFinalBtn');
+    
+    // Admin elements
+    const adminCodeInput = document.getElementById('adminCodeInput');
+    const unlockBtn = document.getElementById('unlockAdminBtn');
+    const adminErrorSpan = document.getElementById('adminError');
+    const adminPanelDiv = document.getElementById('adminProtectedPanel');
+    const newSupportTextarea = document.getElementById('newSupportText');
+    const addSupportBtn = document.getElementById('addSupportBtn');
+    const adminSupportsContainer = document.getElementById('adminSupportsList');
+    const clearAllAdminBtn = document.getElementById('clearAllAdminBtn');
+
+    // ========== Fonction génération message puissant (anglais, compact, pas d'objet, pas d'espaces en trop) ==========
+    function buildPowerfulMessage(number, cause) {
+        let cleanNum = number.trim();
+        if (!cleanNum) cleanNum = "[UNKNOWN]";
+        let cleanCause = cause.trim();
+        if (!cleanCause) cleanCause = "Suspicious/scam behavior reported";
+        
+        // message ultra puissant, ligne par ligne, pas de "Objet :", ni espaces superflus.
+        const header = "⚠️ 𝐒𝐂𝐀𝐌/𝐅𝐑𝐀𝐔𝐃 𝐀𝐋𝐄𝐑𝐓 ⚠️";
+        const numLine = `📞 Number: ${cleanNum}`;
+        const detailLine = `📌 Details: ${cleanCause}`;
+        const verdict = "🔻 VERDICT: Malicious spam/scam operation. Do not reply, block & report.";
+        const action = "➤ Forward this alert to authorities & warn your contacts.";
+        const tag = "#ZetsuReporter #StopScammers";
+        // Assemblage compact sans lignes vides excessives
+        let finalMsg = `${header}\n${numLine}\n${detailLine}\n${verdict}\n${action}\n${tag}`;
+        // Nettoyage: remplacer multiples espaces, supprimer les "Objet" si par erreur présent
+        finalMsg = finalMsg.replace(/\s+/g, ' ').replace(/ \n/g, '\n').replace(/\n /g, '\n').trim();
+        // Supprimer toute occurrence du mot "Objet" (peu importe la casse)
+        finalMsg = finalMsg.replace(/objet\s*:?/gi, '');
+        return finalMsg;
+    }
+
+    // ========== EFFET DE CODAGE LENT (STYLE HACKER, PROGRESSIF) ==========
+    async function animateCodingMessage(targetText) {
+        // Afficher la zone message
+        messageZoneDiv.style.display = 'block';
+        dynamicMsgBox.innerHTML = ''; // vide
+        // Créer un effet d'écriture caractère par caractère avec délai aléatoire progressif
+        let displayed = '';
+        const chars = targetText.split('');
+        for (let i = 0; i < chars.length; i++) {
+            displayed += chars[i];
+            dynamicMsgBox.innerHTML = displayed + '<span class="typing-cursor"></span>';
+            // délai variable entre 20ms et 60ms pour un effet "codage" fluide mais perceptible
+            await new Promise(r => setTimeout(r, Math.floor(Math.random() * 35) + 18));
+        }
+        // Supprimer le curseur après finalisation
+        dynamicMsgBox.innerHTML = displayed;
+        // stocker le message pour copy/whatsapp
+        window.currentPowerfulMsg = targetText;
+    }
+
+    // déclencher génération + animation uniquement si numéro ET cause sont remplis
+    function triggerGeneration() {
+        const number = numberInput.value;
+        const cause = causeInput.value;
+        if (!number.trim()) {
+            alert("❌ Veuillez entrer un numéro de téléphone.");
+            return false;
+        }
+        if (!cause.trim()) {
+            alert("❌ Veuillez décrire la cause / les détails du signalement.");
+            return false;
+        }
+        const powerfulMsg = buildPowerfulMessage(number, cause);
+        // Lancer l'animation "codage" lente
+        animateCodingMessage(powerfulMsg);
+        return true;
+    }
+
+    generateBtn.addEventListener('click', () => {
+        triggerGeneration();
+    });
+
+    // Copier
+    copyBtn.addEventListener('click', () => {
+        if (window.currentPowerfulMsg) {
+            navigator.clipboard.writeText(window.currentPowerfulMsg).then(() => {
+                alert("✅ Message puissant copié !");
+            }).catch(() => alert("Copie manuelle : " + window.currentPowerfulMsg));
+        } else {
+            alert("Générez d'abord un message.");
+        }
+    });
+
+    // WhatsApp
+    whatsappBtn.addEventListener('click', () => {
+        if (window.currentPowerfulMsg) {
+            const encoded = encodeURIComponent(window.currentPowerfulMsg);
+            window.open(`https://wa.me/?text=${encoded}`, '_blank');
+        } else {
+            alert("Aucun message généré.");
+        }
+    });
+
+    // ======================= GESTION ADMIN (LOCALSTORAGE, SUPPORTS) =======================
+    function saveSupportsToLocal() {
+        localStorage.setItem('zetsu_admin_supports_222', JSON.stringify(adminSupports));
+    }
+
     function loadSupports() {
-        const stored = localStorage.getItem('zetsu_admin_supports');
-        if(stored) {
+        const stored = localStorage.getItem('zetsu_admin_supports_222');
+        if (stored) {
             try {
                 adminSupports = JSON.parse(stored);
             } catch(e) { adminSupports = []; }
         }
-        // default initial powerful supports if empty (very impactful english messages, no extra spaces, no "Objet verso")
-        if(!adminSupports.length) {
+        if (!adminSupports.length) {
+            // Supports puissants pré-déposés par l'admin (par défaut)
             adminSupports = [
-                "⚠️ EMERGENCY REPORT: This number is a confirmed scam/fraud. Never share OTP/password. Block + report to authorities. ⚠️ #ScamAlert",
-                "🚨 FRAUD ALERT: Number used for phishing/crypto scam. Do not answer, do not call back. Forward to police cyber cell. Stay safe! 🚨",
-                "🔴 ACTION NEEDED: Suspicious caller pretending bank official. Demands remote access. Immediately block & warn contacts. #StopScammers"
+                "⚠️ SCAM ALERT: This number impersonates bank agent. Never share OTP/password. Block immediately! #FraudAlert",
+                "🚨 URGENT: number used for crypto scam & fake investment. Report to cyberpolice. Do not engage.",
+                "🔴 PHISHING NUMBER: pretends to be Microsoft/Amazon. Demands remote access. Hang up and report."
             ];
-            saveSupports();
+            saveSupportsToLocal();
         }
-        renderAdminSupports();
+        renderAdminSupportsList();
     }
 
-    function saveSupports() {
-        localStorage.setItem('zetsu_admin_supports', JSON.stringify(adminSupports));
-        renderAdminSupports();
-    }
-
-    // render admin supports list with delete buttons (admin only)
-    function renderAdminSupports() {
-        const container = document.getElementById('adminSupportsList');
-        if(!container) return;
-        if(adminSupports.length === 0) {
-            container.innerHTML = '<div style="padding: 12px; color:#9e8b6b;">📭 No supports yet. Admin add some powerful templates.</div>';
+    function renderAdminSupportsList() {
+        if (!adminSupportsContainer) return;
+        if (adminSupports.length === 0) {
+            adminSupportsContainer.innerHTML = '<div style="color:#bda16a; padding:10px;">Aucun support stocké. Ajoutez-en via le dépôt admin.</div>';
             return;
         }
         let html = '';
-        adminSupports.forEach((support, idx) => {
-            // Escape to avoid injection but keep simple
-            const safeSupport = support.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        adminSupports.forEach((sup, idx) => {
+            const safeSup = sup.replace(/</g, '&lt;').replace(/>/g, '&gt;');
             html += `
-                <div class="support-card">
-                    <p>${safeSupport}</p>
-                    <div style="display:flex; justify-content: space-between; align-items:center; margin-top: 6px;">
-                        <small>📌 Admin template #${idx+1}</small>
-                        <button class="delete-single-support" data-index="${idx}" style="background:#842c1c; border:none; border-radius:40px; padding:4px 12px; color:white; font-size:11px; cursor:pointer;">🗑️ Delete</button>
+                <div class="support-item" data-support-index="${idx}">
+                    <div style="word-break:break-word;">${safeSup}</div>
+                    <div class="support-actions">
+                        <button class="load-support-btn" data-idx="${idx}">📋 UTILISER</button>
+                        <button class="delete-support-btn" data-idx="${idx}">🗑️ SUPPR</button>
                     </div>
                 </div>
             `;
         });
-        container.innerHTML = html;
-        // attach delete events for each
-        document.querySelectorAll('.delete-single-support').forEach(btn => {
+        adminSupportsContainer.innerHTML = html;
+        // Ajouter événements pour chaque bouton charger / supprimer
+        document.querySelectorAll('.load-support-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const idx = parseInt(btn.getAttribute('data-index'), 10);
-                if(!isNaN(idx) && idx >=0 && idx < adminSupports.length) {
+                const idx = parseInt(btn.getAttribute('data-idx'), 10);
+                if (!isNaN(idx) && adminSupports[idx]) {
+                    // Charger ce support dans le générateur public (pré-remplit numéro? non, mais le message sera généré directement)
+                    // On va simuler: On prend le support admin et on l'affiche directement sans recréer?
+                    // Pour cohérence, on peut afficher le message puissant directement dans la zone codée et ne pas toucher au numéro/cause
+                    const supportText = adminSupports[idx];
+                    // on affiche ce support comme message généré (pour que l'utilisateur puisse l'envoyer)
+                    animateCodingMessage(supportText);
+                    // Option: préremplir? mais pas obligatoire, c'est propre.
+                }
+            });
+        });
+        document.querySelectorAll('.delete-support-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const idx = parseInt(btn.getAttribute('data-idx'), 10);
+                if (!isNaN(idx) && adminUnlocked) {
                     adminSupports.splice(idx, 1);
-                    saveSupports();
+                    saveSupportsToLocal();
+                    renderAdminSupportsList();
+                } else if (!adminUnlocked) {
+                    adminErrorSpan.innerText = "🔒 Déverrouillez l'admin d'abord !";
                 }
             });
         });
     }
 
-    // ----- GENERATE POWERFUL SUPPORT MESSAGE (based on number + details) FULL ENGLISH, very compact, no extra spaces, no "Objet verso".
-    // Strategy: build a concise but devastating warning message. Also we can optionally embed one of adminSupports? But to ensure powerful, we craft dynamic.
-    // No object line like "Objet: ..." strictly forbidden.
-    function generatePowerfulSupport(phoneNumber, details) {
-        // Clean phone number: trim spaces but keep plus if present
-        let cleanNumber = phoneNumber.trim();
-        if(!cleanNumber) cleanNumber = "[unknown number]";
-        let cleanDetails = details.trim();
-        if(!cleanDetails) cleanDetails = "Suspicious activity reported";
-        
-        // Build intensive message - structure: SHORT INTENSE ALERT + number + details + action. No spaces clutter, minimal line breaks but readable.
-        // Avoid any "Objet:" prefix.
-        const upperAlert = "⚠️ SCAM/SPAM ALERT ⚠️";
-        const line1 = `NUMBER: ${cleanNumber}`;
-        const line2 = `DETAILS: ${cleanDetails}`;
-        const verdict = "🔴 VERDICT: Malicious caller. Do not trust. Never share credentials/banking. Block now!";
-        const recommendation = "► Report to local cyber crime. Share this alert across groups. Protect community.";
-        const hashtags = "#ScamBlocker #ZetsuReporter";
-        
-        // compact but powerful, no extra blank lines. Separator minimal.
-        let finalMsg = `${upperAlert}\n${line1}\n${line2}\n${verdict}\n${recommendation}\n${hashtags}`;
-        // ensure no "Objet" word appears anywhere.
-        if(finalMsg.toLowerCase().includes("objet")) {
-            finalMsg = finalMsg.replace(/objet/gi, '⚠️');
-        }
-        // remove redundant spaces (multiple spaces become single) keep newline.
-        finalMsg = finalMsg.replace(/[ \t]+/g, ' ').replace(/ \n/g, '\n').replace(/\n /g, '\n');
-        return finalMsg;
-    }
-
-    // alternatively, combine with an admin selected support? but we only need main generation.
-    // Also we can allow user to click on any admin support to copy to messagebox directly? Great idea.
-    
-    // UI elements
-    const phoneInput = document.getElementById('phoneNumber');
-    const detailsInput = document.getElementById('details');
-    const generateBtn = document.getElementById('generateBtn');
-    const generatedArea = document.getElementById('generatedArea');
-    const supportMessageBox = document.getElementById('supportMessageBox');
-    const copyMsgBtn = document.getElementById('copyMsgBtn');
-    const whatsappBtn = document.getElementById('whatsappBtn');
-    const addSupportBtn = document.getElementById('addSupportBtn');
-    const adminSupportText = document.getElementById('adminSupportText');
-    const clearAllBtn = document.getElementById('clearAllSupportsBtn');
-    
-    let currentGeneratedMessage = "";
-    
-    function updateGeneratedDisplay(msg) {
-        currentGeneratedMessage = msg;
-        supportMessageBox.innerText = msg;
-        generatedArea.style.display = 'block';
-    }
-    
-    generateBtn.addEventListener('click', () => {
-        let phone = phoneInput.value;
-        let details = detailsInput.value;
-        if(!phone.trim()) {
-            alert("Please enter a phone number (example: +123456789)");
-            return;
-        }
-        const powerfulMsg = generatePowerfulSupport(phone, details);
-        updateGeneratedDisplay(powerfulMsg);
-    });
-    
-    // copy to clipboard
-    copyMsgBtn.addEventListener('click', async () => {
-        if(!currentGeneratedMessage) {
-            alert("Generate a message first.");
-            return;
-        }
-        try {
-            await navigator.clipboard.writeText(currentGeneratedMessage);
-            alert("✅ Powerful support copied to clipboard! Ready to paste anywhere.");
-        } catch(err) {
-            alert("Manual copy: " + currentGeneratedMessage);
-        }
-    });
-    
-    // send via WhatsApp: uses encoded text + optional number? But we want user to paste number directly? Actually standard whatsapp share.
-    whatsappBtn.addEventListener('click', () => {
-        if(!currentGeneratedMessage) {
-            alert("Generate a message first.");
-            return;
-        }
-        const encodedMsg = encodeURIComponent(currentGeneratedMessage);
-        // open WhatsApp web/ app with pre-filled text (no phone prefill, user selects contact)
-        window.open(`https://wa.me/?text=${encodedMsg}`, '_blank');
-    });
-    
-    // Admin: add new support template
+    // Ajout d'un support par admin (si déverrouillé)
     addSupportBtn.addEventListener('click', () => {
-        let newSupport = adminSupportText.value.trim();
-        if(!newSupport) {
-            alert("Please write a powerful support message in English (compact, no object line)");
+        if (!adminUnlocked) {
+            adminErrorSpan.innerText = "❌ Action réservée : entrez le code 222200 d'abord.";
             return;
         }
-        // ensure no "Objet verso" 
-        if(newSupport.toLowerCase().includes("objet")) {
-            alert("❌ Admin: 'Objet' word is forbidden in supports. Please remove any 'Objet' line.");
+        const newSupport = newSupportTextarea.value.trim();
+        if (!newSupport) {
+            alert("Le support ne peut pas être vide.");
+            return;
+        }
+        if (newSupport.toLowerCase().includes('objet')) {
+            alert("⛔ Interdit : le mot 'Objet' n'est pas autorisé dans les supports.");
             return;
         }
         adminSupports.push(newSupport);
-        saveSupports();
-        adminSupportText.value = "";
-        alert("✅ New powerful support deposited by admin! Now visible in vault.");
+        saveSupportsToLocal();
+        renderAdminSupportsList();
+        newSupportTextarea.value = '';
+        adminErrorSpan.innerText = "✅ Support ajouté avec succès.";
+        setTimeout(() => { if(adminErrorSpan) adminErrorSpan.innerText = ""; }, 2000);
     });
-    
-    // Clear all supports (admin action)
-    clearAllSupportsBtn.addEventListener('click', () => {
-        if(confirm("⚠️ ADMIN: Delete ALL deposited supports? This action cannot be undone.")) {
+
+    clearAllAdminBtn.addEventListener('click', () => {
+        if (!adminUnlocked) {
+            adminErrorSpan.innerText = "Accès refusé. Déverrouillez avec le code 222200.";
+            return;
+        }
+        if (confirm("⚠️ Supprimer TOUS les supports définitivement ?")) {
             adminSupports = [];
-            saveSupports();
-            alert("All supports cleared.");
+            saveSupportsToLocal();
+            renderAdminSupportsList();
         }
     });
-    
-    // EXTRA: clicking on any support card automatically copies that support into generated message area (so user can directly use admin's powerful text for reporting).
-    // Also we attach dynamic listener via event delegation because list re-renders.
-    document.getElementById('adminSupportsList').addEventListener('click', (e) => {
-        // find closest .support-card
-        const card = e.target.closest('.support-card');
-        if(card && !e.target.classList.contains('delete-single-support')) {
-            const textElem = card.querySelector('p');
-            if(textElem) {
-                let supportText = textElem.innerText;
-                // optional - user can then copy or send to whatsapp quickly
-                updateGeneratedDisplay(supportText);
-                // also fill phone/details optionally? Not required, but we set current message.
-                alert("📌 Admin support loaded into message box. You can copy or send via WhatsApp.");
-            }
+
+    unlockBtn.addEventListener('click', () => {
+        const entered = adminCodeInput.value.trim();
+        if (entered === ADMIN_SECRET_CODE) {
+            adminUnlocked = true;
+            adminPanelDiv.classList.add('active');
+            adminErrorSpan.innerText = "✔️ Mode admin activé. Vous pouvez déposer des supports.";
+            // actualiser l'affichage pour les actions supprimer
+            renderAdminSupportsList();
+        } else {
+            adminErrorSpan.innerText = "⛔ Code incorrect. Accès refusé.";
+            adminUnlocked = false;
+            adminPanelDiv.classList.remove('active');
         }
     });
-    
-    // initial load and also add some default if needed
+
+    // initialisation
     loadSupports();
-    
-    // provide a small demo default generation if needed (nothing)
-    // also ensure no trailing spaces or any 'objet' in generation.
-    // additional for admin: they can also pre-load extra from UI.
-    
-    // ---- BONUS: manually make the background images extremely clear with Tobirama & Joyboy high quality illustrations -----
-    // Background already set via CSS with external high-res image? I provide an updated stable background using Imgur/direct link to fanart fusion but we ensure not broken. 
-    // To guarantee awesome visibility, I embed via solid gradient + two characters. Because some networks block external, we create alternative composite: 
-    // Add an inline style with powerful image of tobirama + joyboy mix via high res unsplash? but we have already background-image URL. 
-    // In case image fails we use body overlay with emoji? but that's fine. Additional: Extra style to guarantee composition:
-    const style = document.createElement('style');
-    style.textContent = `
-        /* additional overlay for character visibility */
+    // si par défaut admin lock, panel reste caché
+    adminPanelDiv.classList.remove('active');
+    adminUnlocked = false;
+
+    // Option : message de bienvenue avec un effet subtil, mais pas de génération avant saisie numéro+cause
+    // Pour rendre le fond encore plus clair avec JOYBOY + TOBIRAMA, on ajoute un style dynamique supplémentaire haute résolution
+    const extraStyle = document.createElement('style');
+    extraStyle.textContent = `
         body::before {
-            background-image: url('https://i.postimg.cc/9fYLcCw0/tobirama-joyboy-mix.png'), linear-gradient(145deg, #010101b3, #161a2bb3);
-            background-size: cover, auto;
+            background-image: url('https://wallpapercave.com/wp/wp12917069.jpg'), linear-gradient(0deg, #01010180, #01010180);
             background-blend-mode: overlay;
+            background-size: cover;
+        }
+        body::after {
+            background: radial-gradient(ellipse at 30% 40%, rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
+                        url('https://images4.alphacoders.com/132/1326117.png');
+            background-size: cover, cover;
+            opacity: 0.85;
         }
     `;
-    // if image load issue, fallback to a vibrant anime fusion, but we also add inline local backup? 
-    // Because we want stability, we'll use a reliable CDN for Tobirama x Joyboy concept? I will embed two direct images via multiple background.
-    document.head.appendChild(style);
-    // Force strong crisp characters with stacking effect: already.
-    // final admin note: Admin can add unlimited supports.
-    console.log("ZETSU REPORTER LIVE — TOBIRAMA & JOYBOY WATCH OVER");
-    // Also we ensure no weird "verso" OR massive whitespace.
-    // Extra sanitize generation to remove duplicate spaces:
-    const originalGenerate = generatePowerfulSupport;
-    window.generatePowerfulSupport = function(phone, details) {
-        let msg = originalGenerate(phone, details);
-        msg = msg.replace(/\s+/g, ' ').replace(/ \n/g, '\n').replace(/\n /g, '\n').trim();
-        return msg;
-    };
-    // Override the function globally as well
-    generatePowerfulSupport = window.generatePowerfulSupport;
-    
-    // ensure generateBtn uses new version
-    const newGen = () => {
-        let phone = phoneInput.value;
-        let details = detailsInput.value;
-        if(!phone.trim()) { alert("Enter number"); return; }
-        const powerfulMsg = generatePowerfulSupport(phone, details);
-        updateGeneratedDisplay(powerfulMsg);
-    };
-    generateBtn.removeEventListener('click', generateBtn.click);
-    generateBtn.addEventListener('click', newGen);
-    
-    // apply final tweaks
-    if(supportMessageBox) supportMessageBox.style.whiteSpace = "pre-wrap";
-    
-    // set default demo to preview ?
-    // auto demo: show example on load but optional, keep clean.
-    setTimeout(() => {
-        if(!currentGeneratedMessage) {
-            phoneInput.value = "+447912345678";
-            detailsInput.value = "Fake missed call, then WhatsApp sextortion attempt";
-            newGen();
-        }
-    }, 100);
+    document.head.appendChild(extraStyle);
 </script>
 </body>
 </html>
