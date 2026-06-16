@@ -22,25 +22,26 @@
             padding: 1.5rem;
         }
 
-        /* FOND AVEC VOTRE PHOTO */
+        /* FOND AVEC VOTRE PHOTO - RECADRÉE ET RAPPROCHÉE */
         .bg-image {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('C4048994-7FB1-487A-9A7F-838CF8BBFF98.png') no-repeat center center/cover;
+            background: url('C4048994-7FB1-487A-9A7F-838CF8BBFF98.png') no-repeat center 25%/cover;
             z-index: -2;
-            filter: grayscale(30%) contrast(1.05) brightness(0.8);
+            filter: brightness(0.95) contrast(1.05);
         }
 
-        .overlay-monochrome {
+        /* OVERLAY PLUS LÉGER POUR ÉVITER LA PARTIE SOMBRE */
+        .overlay-light {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.35);
             z-index: -1;
         }
 
@@ -51,42 +52,43 @@
             z-index: 5;
         }
 
-        /* BANNIÈRE LUFFY GEAR 5 ANIMÉE */
+        /* BANNIÈRE LUFFY GEAR 5 - AVEC SOURCE FIABLE */
         .luffy-banner {
             width: 100%;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(6px);
             border-radius: 2rem 2rem 0 0;
-            padding: 0.8rem 1.5rem;
+            padding: 0.7rem 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 18px;
             margin-bottom: 2rem;
-            border-bottom: 2px solid rgba(255,200,100,0.3);
+            border-bottom: 2px solid rgba(255, 200, 100, 0.25);
         }
         .luffy-banner img {
-            height: 70px;
-            width: auto;
+            height: 65px;
+            width: 65px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #ffcc66;
-            box-shadow: 0 0 20px rgba(255,200,100,0.3);
+            box-shadow: 0 0 25px rgba(255, 200, 100, 0.3);
             animation: pulseGlow 2s ease-in-out infinite;
+            background: #1a1a2a;
         }
         .luffy-banner h1 {
             color: #ffdd99;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(255,200,100,0.2);
+            text-shadow: 0 0 15px rgba(255, 200, 100, 0.15);
         }
         .luffy-banner span {
             color: #ff8844;
         }
         @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255,200,100,0.2); transform: scale(1); }
-            50% { box-shadow: 0 0 40px rgba(255,200,100,0.5); transform: scale(1.02); }
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 200, 100, 0.2); transform: scale(1); }
+            50% { box-shadow: 0 0 40px rgba(255, 200, 100, 0.4); transform: scale(1.03); }
         }
 
         .reporter-grid {
@@ -97,12 +99,12 @@
         }
 
         .card {
-            background: rgba(0, 0, 0, 0.65);
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(10px);
             border-radius: 2rem;
             padding: 2rem 1.8rem;
             transition: all 0.3s ease;
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.8);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.8);
             border: none;
         }
 
@@ -114,7 +116,7 @@
         .admin-zone {
             flex: 1.4;
             min-width: 300px;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(14px);
         }
 
@@ -127,7 +129,7 @@
             color: transparent;
             letter-spacing: -0.02em;
             margin-bottom: 0.3rem;
-            text-shadow: 0 0 12px rgba(255,255,255,0.2);
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
         }
 
         .tagline {
@@ -166,12 +168,12 @@
             transform: scale(0.97);
         }
         .double-btns .active-mode {
-            box-shadow: 0 0 15px rgba(255,200,100,0.4);
+            box-shadow: 0 0 15px rgba(255, 200, 100, 0.4);
             border: 1px solid #ffcc66;
         }
 
         .zetsu-scroll {
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.4);
             border-radius: 1.5rem;
             padding: 1rem;
             margin-bottom: 1.8rem;
@@ -207,7 +209,8 @@
             margin-bottom: 0.4rem;
             font-size: 0.85rem;
         }
-        .input-group input, .input-group textarea {
+        .input-group input,
+        .input-group textarea {
             width: 100%;
             background: rgba(20, 18, 25, 0.9);
             border: none;
@@ -219,8 +222,9 @@
             transition: 0.25s;
             outline: none;
         }
-        .input-group input:focus, .input-group textarea:focus {
-            box-shadow: 0 0 0 2px rgba(200,200,200,0.4);
+        .input-group input:focus,
+        .input-group textarea:focus {
+            box-shadow: 0 0 0 2px rgba(200, 200, 200, 0.4);
             background: #1a1a2a;
         }
 
@@ -240,12 +244,16 @@
             background: linear-gradient(100deg, #555, #2a2a2a);
             transform: translateY(-2px);
         }
-        .btn-red { background: linear-gradient(100deg, #8b2c2c, #4a1010); }
-        .btn-blue { background: linear-gradient(100deg, #2c6e8b, #1a3a4a); }
+        .btn-red {
+            background: linear-gradient(100deg, #8b2c2c, #4a1010);
+        }
+        .btn-blue {
+            background: linear-gradient(100deg, #2c6e8b, #1a3a4a);
+        }
 
         .coding-message-container {
             margin-top: 1.5rem;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 1.8rem;
             padding: 1rem;
         }
@@ -267,7 +275,11 @@
             vertical-align: middle;
             animation: blink 1s step-end infinite;
         }
-        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+        @keyframes blink {
+            0%,
+            100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
 
         .btn-icon-group {
             display: flex;
@@ -282,31 +294,117 @@
             font-weight: 600;
             color: #ffdd99;
             cursor: pointer;
-            flex:1;
+            flex: 1;
         }
-        .btn-wa { background: #25D366; color:#000; }
+        .btn-wa {
+            background: #25D366;
+            color: #000;
+        }
 
-        .badge-admin { background: #444; padding: 0.2rem 0.8rem; border-radius: 2rem; font-size:0.7rem; color:#ffd966; }
-        .admin-lock { background: #111; border-radius: 2rem; padding: 0.8rem; margin-bottom:1rem; }
-        .admin-lock input { background: #2a2a2a; border: none; border-radius: 2rem; padding: 0.5rem 1rem; color: white; width: 70%; }
-        .admin-lock input::placeholder { color: #666; }
-        .admin-lock button { background: #666; border: none; border-radius:2rem; padding:0.5rem 1rem; font-weight:bold; cursor:pointer; color:white; }
-        .admin-content { display: none; }
-        .admin-content.active { display: block; }
-        .support-item { background: #1e1a1fcc; border-radius: 1.2rem; padding: 0.8rem; margin-bottom:0.8rem; font-family: monospace; font-size:0.75rem; color:#f5cfb5; word-break:break-word; }
-        .support-actions { display: flex; justify-content: flex-end; gap:6px; margin-top:6px; }
-        .support-actions button { background:#5a2e2e; border:none; color:white; border-radius:1rem; padding:0.2rem 0.8rem; cursor:pointer; }
-        textarea.admin-msg-input { width:100%; background:#1f1a24; border-radius:1.2rem; padding:0.7rem; border:none; color:white; margin:0.5rem 0; font-family:monospace; }
-        hr { margin:1rem 0; border-color:#555; }
-        .small-note { font-size:0.65rem; color:#bbaa88; text-align:center; margin-top:1rem; }
-        @media (max-width:850px){ .card{ padding:1.5rem; } .logo{ font-size:2rem; } .luffy-banner h1{ font-size:1.2rem; } .double-btns button{ font-size:0.7rem; } }
+        .badge-admin {
+            background: #444;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            color: #ffd966;
+        }
+        .admin-lock {
+            background: #111;
+            border-radius: 2rem;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        .admin-lock input {
+            background: #2a2a2a;
+            border: none;
+            border-radius: 2rem;
+            padding: 0.5rem 1rem;
+            color: white;
+            width: 70%;
+        }
+        .admin-lock input::placeholder {
+            color: #666;
+        }
+        .admin-lock button {
+            background: #666;
+            border: none;
+            border-radius: 2rem;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+        }
+        .admin-content {
+            display: none;
+        }
+        .admin-content.active {
+            display: block;
+        }
+        .support-item {
+            background: #1e1a1fcc;
+            border-radius: 1.2rem;
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #f5cfb5;
+            word-break: break-word;
+        }
+        .support-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        .support-actions button {
+            background: #5a2e2e;
+            border: none;
+            color: white;
+            border-radius: 1rem;
+            padding: 0.2rem 0.8rem;
+            cursor: pointer;
+        }
+        textarea.admin-msg-input {
+            width: 100%;
+            background: #1f1a24;
+            border-radius: 1.2rem;
+            padding: 0.7rem;
+            border: none;
+            color: white;
+            margin: 0.5rem 0;
+            font-family: monospace;
+        }
+        hr {
+            margin: 1rem 0;
+            border-color: #555;
+        }
+        .small-note {
+            font-size: 0.65rem;
+            color: #bbaa88;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        @media (max-width: 850px) {
+            .card {
+                padding: 1.5rem;
+            }
+            .logo {
+                font-size: 2rem;
+            }
+            .luffy-banner h1 {
+                font-size: 1.1rem;
+            }
+            .double-btns button {
+                font-size: 0.7rem;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- FOND AVEC VOTRE PHOTO -->
+    <!-- FOND AVEC VOTRE PHOTO - RECADRÉE RAPPROCHÉE -->
     <div class="bg-image"></div>
-    <div class="overlay-monochrome"></div>
+    <div class="overlay-light"></div>
 
     <!-- MUSIQUE -->
     <audio id="bgMusic" loop preload="auto">
@@ -326,11 +424,10 @@
 
     <div id="mainSiteContent" style="display:none;">
         <div class="zetsu-world">
-            <!-- BANNIÈRE LUFFY GEAR 5 -->
+            <!-- BANNIÈRE LUFFY GEAR 5 - SOURCE FIABLE -->
             <div class="luffy-banner">
-                <img src="https://i.pinimg.com/originals/1a/2b/3c/4d/5e/6f/7g/8h/9i/0j/1a2b3c4d5e6f7g8h9i0j.gif" alt="Luffy Gear 5" 
-                     onerror="this.src='https://media.tenor.com/xB5h5V5V5V0AAAAi/luffy-gear-5.gif'; this.onerror=null;"
-                     style="height:70px; width:auto; border-radius:50%; object-fit:cover; border:2px solid #ffcc66; box-shadow:0 0 20px rgba(255,200,100,0.3); animation:pulseGlow 2s ease-in-out infinite;">
+                <img src="https://media.tenor.com/xB5h5V5V5V0AAAAi/luffy-gear-5.gif" alt="Luffy Gear 5"
+                onerror="this.src='https://i.pinimg.com/originals/1a/2b/3c/4d/5e/6f/7g/8h/9i/0j/1a2b3c4d5e6f7g8h9i0j.gif'; this.onerror=null;">
                 <h1>⚡ <span>ZETSU</span> REPORTER ⚡</h1>
             </div>
 
@@ -380,7 +477,7 @@
                     </div>
 
                     <button id="generateBtn" class="btn-primary btn-red">🔴 GÉNÉRER LE MESSAGE DE BLOCAGE</button>
-                    
+
                     <div id="messageZone" style="margin-top: 1.5rem; display: none;">
                         <div class="coding-message-container">
                             <div id="dynamicMessageBox" class="generated-message"></div>
@@ -406,7 +503,7 @@
                         </div>
                         <div id="adminError" style="color:#ff7a5c; font-size:0.7rem; margin-top:6px;"></div>
                     </div>
-                    
+
                     <div id="adminProtectedPanel" class="admin-content">
                         <label style="color:#dddddd;">📌 Déposer un support (convaincant)</label>
                         <textarea id="newSupportText" class="admin-msg-input" rows="2" placeholder="FRAUD ALERT: This number is extremely dangerous. Block immediately. Report to police."></textarea>
@@ -429,200 +526,213 @@
         </div>
     </div>
 
-<script>
-    // ========== SITE GLOBAL CODE = 2022 ==========
-    const GLOBAL_SITE_CODE = "2022";
-    const ADMIN_SECRET = "222200";
-    let adminUnlocked = false;
-    let adminSupports = [];
-    let currentMode = 'block';
+    <script>
+        // ========== SITE GLOBAL CODE = 2022 ==========
+        const GLOBAL_SITE_CODE = "2022";
+        const ADMIN_SECRET = "222200";
+        let adminUnlocked = false;
+        let adminSupports = [];
+        let currentMode = 'block';
 
-    const globalLockDiv = document.getElementById('globalLockScreen');
-    const mainContent = document.getElementById('mainSiteContent');
-    const globalPassInput = document.getElementById('globalPassInput');
-    const globalUnlockBtn = document.getElementById('globalUnlockBtn');
-    const globalErrorMsg = document.getElementById('globalErrorMsg');
+        const globalLockDiv = document.getElementById('globalLockScreen');
+        const mainContent = document.getElementById('mainSiteContent');
+        const globalPassInput = document.getElementById('globalPassInput');
+        const globalUnlockBtn = document.getElementById('globalUnlockBtn');
+        const globalErrorMsg = document.getElementById('globalErrorMsg');
 
-    globalUnlockBtn.addEventListener('click', () => {
-        if (globalPassInput.value.trim() === GLOBAL_SITE_CODE) {
-            globalLockDiv.style.display = 'none';
-            mainContent.style.display = 'block';
-            tryAutoPlayMusic();
-        } else {
-            globalErrorMsg.innerText = "Code incorrect. Accès refusé.";
-        }
-    });
-    globalPassInput.addEventListener('keyup', (e) => { if(e.key === 'Enter') globalUnlockBtn.click(); });
-
-    const bgMusic = document.getElementById('bgMusic');
-    function tryAutoPlayMusic() {
-        bgMusic.play().catch(e => console.log("musique en attente"));
-        document.body.addEventListener('click', () => bgMusic.play(), { once: true });
-    }
-
-    // MODE
-    const modeBlockBtn = document.getElementById('modeBlockBtn');
-    const modeUnblockBtn = document.getElementById('modeUnblockBtn');
-    const blockFields = document.getElementById('blockFields');
-    const unblockFields = document.getElementById('unblockFields');
-    const generateBtn = document.getElementById('generateBtn');
-
-    modeBlockBtn.addEventListener('click', () => {
-        currentMode = 'block';
-        modeBlockBtn.classList.add('active-mode');
-        modeUnblockBtn.classList.remove('active-mode');
-        blockFields.style.display = 'block';
-        unblockFields.style.display = 'none';
-        generateBtn.textContent = '🔴 GÉNÉRER LE MESSAGE DE BLOCAGE';
-        generateBtn.className = 'btn-primary btn-red';
-    });
-
-    modeUnblockBtn.addEventListener('click', () => {
-        currentMode = 'unblock';
-        modeUnblockBtn.classList.add('active-mode');
-        modeBlockBtn.classList.remove('active-mode');
-        unblockFields.style.display = 'block';
-        blockFields.style.display = 'none';
-        generateBtn.textContent = '🔓 GÉNÉRER LA DEMANDE DE DÉBLOCAGE';
-        generateBtn.className = 'btn-primary btn-blue';
-    });
-
-    // MESSAGES
-    function buildBlockMessage(number, cause) {
-        let cleanNum = number.trim() || "[UNKNOWN]";
-        let cleanCause = cause.trim() || "Fraudulent behavior";
-        return `FRAUD & SCAM ALERT - OFFICIAL REPORT\nPhone number: ${cleanNum}\nIncident details: ${cleanCause}\nVERDICT: Confirmed malicious operation. This number is used for criminal activities (scams, threats, identity theft).\nACTION REQUIRED: Please block this number immediately to prevent further harm. Report to local authorities and telecom regulator.\nDo not answer. Share this warning.`;
-    }
-
-    function buildUnblockMessage(number, reason) {
-        let cleanNum = number.trim() || "[UNKNOWN]";
-        let cleanReason = reason.trim() || "My account was blocked by mistake";
-        return `ACCOUNT UNBLOCK REQUEST - OFFICIAL APPEAL\nWhatsApp number: ${cleanNum}\nReason for block: ${cleanReason}\nAPPEAL: This account has been blocked by mistake. I have never violated WhatsApp's Terms of Service. I am a legitimate user.\nREQUEST: Please review my case and unblock my account immediately. I am ready to provide any additional verification.\nThank you for your prompt action.`;
-    }
-
-    function buildUltraPowerful(number) {
-        let n = number.trim() || "[UNKNOWN]";
-        return `EMERGENCY FRAUD ALERT - HIGH THREAT\nNUMBER: ${n}\nCLASSIFICATION: Dangerous scam / fraudulent line. Used for extortion, phishing or impersonation.\nREQUEST: Immediate blocking by operator and authorities. This number has been flagged by ZETSU security network.\nDo not call back. Report to cyber police. Share this alert.`;
-    }
-
-    async function animateCodingMessage(targetText, targetElement) {
-        const msgZone = document.getElementById('messageZone');
-        const dynamicBox = document.getElementById('dynamicMessageBox');
-        if(targetElement === dynamicBox) msgZone.style.display = 'block';
-        targetElement.innerHTML = '';
-        let displayed = '';
-        for(let i=0; i<targetText.length; i++) {
-            displayed += targetText[i];
-            targetElement.innerHTML = displayed + '<span class="typing-cursor"></span>';
-            await new Promise(r => setTimeout(r, Math.floor(Math.random()*25)+10));
-        }
-        targetElement.innerHTML = displayed;
-        window.currentPowerfulMsg = targetText;
-    }
-
-    const numberInput = document.getElementById('reportNumber');
-    const causeInput = document.getElementById('reportCause');
-    const unblockNumber = document.getElementById('unblockNumber');
-    const unblockReason = document.getElementById('unblockReason');
-    const dynamicMsgBox = document.getElementById('dynamicMessageBox');
-    const copyBtn = document.getElementById('copyFinalMsg');
-    const whatsappBtn = document.getElementById('whatsappFinalBtn');
-
-    generateBtn.addEventListener('click', () => {
-        let msg;
-        if (currentMode === 'block') {
-            let num = numberInput.value, cause = causeInput.value;
-            if(!num.trim()) { alert("Numéro requis."); return; }
-            if(!cause.trim()) { alert("Cause requise."); return; }
-            msg = buildBlockMessage(num, cause);
-        } else {
-            let num = unblockNumber.value, reason = unblockReason.value;
-            if(!num.trim()) { alert("Votre numéro WhatsApp est requis."); return; }
-            if(!reason.trim()) { alert("Raison du déblocage requise."); return; }
-            msg = buildUnblockMessage(num, reason);
-        }
-        animateCodingMessage(msg, dynamicMsgBox);
-    });
-
-    copyBtn.addEventListener('click', () => { 
-        if(window.currentPowerfulMsg) { 
-            navigator.clipboard.writeText(window.currentPowerfulMsg).then(() => alert("Copié !")); 
-        } else alert("Générez d'abord."); 
-    });
-    whatsappBtn.addEventListener('click', () => { 
-        if(window.currentPowerfulMsg) window.open(`https://wa.me/?text=${encodeURIComponent(window.currentPowerfulMsg)}`, '_blank'); 
-        else alert("Générez d'abord."); 
-    });
-
-    // ADMIN
-    function saveSupports() { localStorage.setItem('zetsu_admin_supports_222', JSON.stringify(adminSupports)); }
-    function loadSupports() {
-        let stored = localStorage.getItem('zetsu_admin_supports_222');
-        if(stored) try { adminSupports = JSON.parse(stored); } catch(e) { adminSupports = []; }
-        if(!adminSupports.length) adminSupports = [
-            "FRAUD ALERT: This number impersonates bank agents. Request immediate block. Report to authorities.",
-            "URGENT: This number sends death threats and extortion. Block now. Inform cyber police.",
-            "SCAM WARNING: Fake technical support. Do not share any data. Block this line."
-        ];
-        saveSupports(); renderAdminList();
-    }
-    function renderAdminList() {
-        const container = document.getElementById('adminSupportsList');
-        if(!container) return;
-        if(adminSupports.length===0) { container.innerHTML='<div style="color:#bbaa88; padding:10px;">Aucun support.</div>'; return; }
-        let html='';
-        adminSupports.forEach((s,i) => { 
-            html+=`<div class="support-item"><div>${s.replace(/</g,'&lt;')}</div><div class="support-actions"><button class="load-support" data-idx="${i}">UTILISER</button><button class="del-support" data-idx="${i}">SUPPR</button></div></div>`; 
+        globalUnlockBtn.addEventListener('click', () => {
+            if (globalPassInput.value.trim() === GLOBAL_SITE_CODE) {
+                globalLockDiv.style.display = 'none';
+                mainContent.style.display = 'block';
+                tryAutoPlayMusic();
+            } else {
+                globalErrorMsg.innerText = "Code incorrect. Accès refusé.";
+            }
         });
-        container.innerHTML=html;
-        document.querySelectorAll('.load-support').forEach(btn=>btn.addEventListener('click',(e)=>{ let idx=btn.dataset.idx; if(adminSupports[idx]) animateCodingMessage(adminSupports[idx], dynamicMsgBox); }));
-        document.querySelectorAll('.del-support').forEach(btn=>btn.addEventListener('click',(e)=>{ if(adminUnlocked){ adminSupports.splice(btn.dataset.idx,1); saveSupports(); renderAdminList(); } else alert("Admin non déverrouillé"); }));
-    }
+        globalPassInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') globalUnlockBtn.click(); });
 
-    const adminCodeInput = document.getElementById('adminCodeInput');
-    const unlockAdminBtn = document.getElementById('unlockAdminBtn');
-    const adminErrorSpan = document.getElementById('adminError');
-    const adminPanelDiv = document.getElementById('adminProtectedPanel');
-    const addSupportBtn = document.getElementById('addSupportBtn');
-    const newSupportText = document.getElementById('newSupportText');
-    const clearAllAdminBtn = document.getElementById('clearAllAdminBtn');
-    const adminQuickNumber = document.getElementById('adminQuickNumber');
-    const generateUltraBtn = document.getElementById('generateUltraPowerfulBtn');
-    const ultraPreview = document.getElementById('ultraMessagePreview');
+        const bgMusic = document.getElementById('bgMusic');
 
-    unlockAdminBtn.addEventListener('click',()=>{
-        if(adminCodeInput.value.trim()===ADMIN_SECRET){ 
-            adminUnlocked=true; 
-            adminPanelDiv.classList.add('active'); 
-            adminErrorSpan.innerText="Admin activé ✓"; 
-            renderAdminList(); 
-        } else { 
-            adminUnlocked=false; 
-            adminPanelDiv.classList.remove('active'); 
-            adminErrorSpan.innerText="Code 222200 requis"; 
+        function tryAutoPlayMusic() {
+            bgMusic.play().catch(e => console.log("musique en attente"));
+            document.body.addEventListener('click', () => bgMusic.play(), { once: true });
         }
-    });
-    adminCodeInput.addEventListener('keyup', (e) => { if(e.key === 'Enter') unlockAdminBtn.click(); });
 
-    addSupportBtn.addEventListener('click',()=>{ 
-        if(!adminUnlocked){ alert("Déverrouillez admin"); return; } 
-        let txt=newSupportText.value.trim(); 
-        if(txt) { adminSupports.push(txt); saveSupports(); renderAdminList(); newSupportText.value=""; } 
-    });
-    clearAllAdminBtn.addEventListener('click',()=>{ 
-        if(adminUnlocked && confirm("Effacer tous les supports ?")){ adminSupports=[]; saveSupports(); renderAdminList(); } 
-    });
-    generateUltraBtn.addEventListener('click',()=>{ 
-        let num=adminQuickNumber.value; 
-        if(!num) { alert("Entrez un numéro"); return; } 
-        let ultraMsg=buildUltraPowerful(num); 
-        ultraPreview.innerText=ultraMsg; 
-        animateCodingMessage(ultraMsg, ultraPreview); 
-    });
+        // MODE
+        const modeBlockBtn = document.getElementById('modeBlockBtn');
+        const modeUnblockBtn = document.getElementById('modeUnblockBtn');
+        const blockFields = document.getElementById('blockFields');
+        const unblockFields = document.getElementById('unblockFields');
+        const generateBtn = document.getElementById('generateBtn');
 
-    loadSupports();
-    adminPanelDiv.classList.remove('active');
-    adminUnlocked=false;
-</script>
+        modeBlockBtn.addEventListener('click', () => {
+            currentMode = 'block';
+            modeBlockBtn.classList.add('active-mode');
+            modeUnblockBtn.classList.remove('active-mode');
+            blockFields.style.display = 'block';
+            unblockFields.style.display = 'none';
+            generateBtn.textContent = '🔴 GÉNÉRER LE MESSAGE DE BLOCAGE';
+            generateBtn.className = 'btn-primary btn-red';
+        });
+
+        modeUnblockBtn.addEventListener('click', () => {
+            currentMode = 'unblock';
+            modeUnblockBtn.classList.add('active-mode');
+            modeBlockBtn.classList.remove('active-mode');
+            unblockFields.style.display = 'block';
+            blockFields.style.display = 'none';
+            generateBtn.textContent = '🔓 GÉNÉRER LA DEMANDE DE DÉBLOCAGE';
+            generateBtn.className = 'btn-primary btn-blue';
+        });
+
+        // MESSAGES
+        function buildBlockMessage(number, cause) {
+            let cleanNum = number.trim() || "[UNKNOWN]";
+            let cleanCause = cause.trim() || "Fraudulent behavior";
+            return `FRAUD & SCAM ALERT - OFFICIAL REPORT\nPhone number: ${cleanNum}\nIncident details: ${cleanCause}\nVERDICT: Confirmed malicious operation. This number is used for criminal activities (scams, threats, identity theft).\nACTION REQUIRED: Please block this number immediately to prevent further harm. Report to local authorities and telecom regulator.\nDo not answer. Share this warning.`;
+        }
+
+        function buildUnblockMessage(number, reason) {
+            let cleanNum = number.trim() || "[UNKNOWN]";
+            let cleanReason = reason.trim() || "My account was blocked by mistake";
+            return `ACCOUNT UNBLOCK REQUEST - OFFICIAL APPEAL\nWhatsApp number: ${cleanNum}\nReason for block: ${cleanReason}\nAPPEAL: This account has been blocked by mistake. I have never violated WhatsApp's Terms of Service. I am a legitimate user.\nREQUEST: Please review my case and unblock my account immediately. I am ready to provide any additional verification.\nThank you for your prompt action.`;
+        }
+
+        function buildUltraPowerful(number) {
+            let n = number.trim() || "[UNKNOWN]";
+            return `EMERGENCY FRAUD ALERT - HIGH THREAT\nNUMBER: ${n}\nCLASSIFICATION: Dangerous scam / fraudulent line. Used for extortion, phishing or impersonation.\nREQUEST: Immediate blocking by operator and authorities. This number has been flagged by ZETSU security network.\nDo not call back. Report to cyber police. Share this alert.`;
+        }
+
+        async function animateCodingMessage(targetText, targetElement) {
+            const msgZone = document.getElementById('messageZone');
+            const dynamicBox = document.getElementById('dynamicMessageBox');
+            if (targetElement === dynamicBox) msgZone.style.display = 'block';
+            targetElement.innerHTML = '';
+            let displayed = '';
+            for (let i = 0; i < targetText.length; i++) {
+                displayed += targetText[i];
+                targetElement.innerHTML = displayed + '<span class="typing-cursor"></span>';
+                await new Promise(r => setTimeout(r, Math.floor(Math.random() * 25) + 10));
+            }
+            targetElement.innerHTML = displayed;
+            window.currentPowerfulMsg = targetText;
+        }
+
+        const numberInput = document.getElementById('reportNumber');
+        const causeInput = document.getElementById('reportCause');
+        const unblockNumber = document.getElementById('unblockNumber');
+        const unblockReason = document.getElementById('unblockReason');
+        const dynamicMsgBox = document.getElementById('dynamicMessageBox');
+        const copyBtn = document.getElementById('copyFinalMsg');
+        const whatsappBtn = document.getElementById('whatsappFinalBtn');
+
+        generateBtn.addEventListener('click', () => {
+            let msg;
+            if (currentMode === 'block') {
+                let num = numberInput.value,
+                    cause = causeInput.value;
+                if (!num.trim()) { alert("Numéro requis."); return; }
+                if (!cause.trim()) { alert("Cause requise."); return; }
+                msg = buildBlockMessage(num, cause);
+            } else {
+                let num = unblockNumber.value,
+                    reason = unblockReason.value;
+                if (!num.trim()) { alert("Votre numéro WhatsApp est requis."); return; }
+                if (!reason.trim()) { alert("Raison du déblocage requise."); return; }
+                msg = buildUnblockMessage(num, reason);
+            }
+            animateCodingMessage(msg, dynamicMsgBox);
+        });
+
+        copyBtn.addEventListener('click', () => {
+            if (window.currentPowerfulMsg) {
+                navigator.clipboard.writeText(window.currentPowerfulMsg).then(() => alert("Copié !"));
+            } else alert("Générez d'abord.");
+        });
+        whatsappBtn.addEventListener('click', () => {
+            if (window.currentPowerfulMsg) window.open(`https://wa.me/?text=${encodeURIComponent(window.currentPowerfulMsg)}`, '_blank');
+            else alert("Générez d'abord.");
+        });
+
+        // ADMIN
+        function saveSupports() { localStorage.setItem('zetsu_admin_supports_222', JSON.stringify(adminSupports)); }
+
+        function loadSupports() {
+            let stored = localStorage.getItem('zetsu_admin_supports_222');
+            if (stored) try { adminSupports = JSON.parse(stored); } catch (e) { adminSupports = []; }
+            if (!adminSupports.length) adminSupports = [
+                "FRAUD ALERT: This number impersonates bank agents. Request immediate block. Report to authorities.",
+                "URGENT: This number sends death threats and extortion. Block now. Inform cyber police.",
+                "SCAM WARNING: Fake technical support. Do not share any data. Block this line."
+            ];
+            saveSupports();
+            renderAdminList();
+        }
+
+        function renderAdminList() {
+            const container = document.getElementById('adminSupportsList');
+            if (!container) return;
+            if (adminSupports.length === 0) { container.innerHTML = '<div style="color:#bbaa88; padding:10px;">Aucun support.</div>'; return; }
+            let html = '';
+            adminSupports.forEach((s, i) => {
+                html += `<div class="support-item"><div>${s.replace(/</g,'&lt;')}</div><div class="support-actions"><button class="load-support" data-idx="${i}">UTILISER</button><button class="del-support" data-idx="${i}">SUPPR</button></div></div>`;
+            });
+            container.innerHTML = html;
+            document.querySelectorAll('.load-support').forEach(btn => btn.addEventListener('click', (e) => { let idx = btn.dataset.idx; if (adminSupports[idx]) animateCodingMessage(adminSupports[idx], dynamicMsgBox); }));
+            document.querySelectorAll('.del-support').forEach(btn => btn.addEventListener('click', (e) => { if (adminUnlocked) { adminSupports.splice(btn.dataset.idx, 1);
+                    saveSupports();
+                    renderAdminList(); } else alert("Admin non déverrouillé"); }));
+        }
+
+        const adminCodeInput = document.getElementById('adminCodeInput');
+        const unlockAdminBtn = document.getElementById('unlockAdminBtn');
+        const adminErrorSpan = document.getElementById('adminError');
+        const adminPanelDiv = document.getElementById('adminProtectedPanel');
+        const addSupportBtn = document.getElementById('addSupportBtn');
+        const newSupportText = document.getElementById('newSupportText');
+        const clearAllAdminBtn = document.getElementById('clearAllAdminBtn');
+        const adminQuickNumber = document.getElementById('adminQuickNumber');
+        const generateUltraBtn = document.getElementById('generateUltraPowerfulBtn');
+        const ultraPreview = document.getElementById('ultraMessagePreview');
+
+        unlockAdminBtn.addEventListener('click', () => {
+            if (adminCodeInput.value.trim() === ADMIN_SECRET) {
+                adminUnlocked = true;
+                adminPanelDiv.classList.add('active');
+                adminErrorSpan.innerText = "Admin activé ✓";
+                renderAdminList();
+            } else {
+                adminUnlocked = false;
+                adminPanelDiv.classList.remove('active');
+                adminErrorSpan.innerText = "Code 222200 requis";
+            }
+        });
+        adminCodeInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') unlockAdminBtn.click(); });
+
+        addSupportBtn.addEventListener('click', () => {
+            if (!adminUnlocked) { alert("Déverrouillez admin"); return; }
+            let txt = newSupportText.value.trim();
+            if (txt) { adminSupports.push(txt);
+                saveSupports();
+                renderAdminList();
+                newSupportText.value = ""; }
+        });
+        clearAllAdminBtn.addEventListener('click', () => {
+            if (adminUnlocked && confirm("Effacer tous les supports ?")) { adminSupports = [];
+                saveSupports();
+                renderAdminList(); }
+        });
+        generateUltraBtn.addEventListener('click', () => {
+            let num = adminQuickNumber.value;
+            if (!num) { alert("Entrez un numéro"); return; }
+            let ultraMsg = buildUltraPowerful(num);
+            ultraPreview.innerText = ultraMsg;
+            animateCodingMessage(ultraMsg, ultraPreview);
+        });
+
+        loadSupports();
+        adminPanelDiv.classList.remove('active');
+        adminUnlocked = false;
+    </script>
 </body>
 </html>
