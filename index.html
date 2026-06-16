@@ -22,7 +22,7 @@
             padding: 1.5rem;
         }
 
-        /* ===== FOND VIDÉO ===== */
+        /* FOND VIDÉO */
         .video-background {
             position: fixed;
             top: 0;
@@ -31,21 +31,22 @@
             height: 100%;
             object-fit: cover;
             z-index: -2;
+            filter: grayscale(30%) contrast(1.1) brightness(0.9);
         }
 
-        /* overlay rouge élégant (sans cacher la vidéo) */
-        .overlay-red {
+        /* Overlay noir/blanc subtil pour harmonie */
+        .overlay-monochrome {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(100, 0, 0, 0.45), rgba(30, 0, 0, 0.7));
+            background: rgba(0, 0, 0, 0.55);
             z-index: -1;
         }
 
         .zetsu-world {
-            max-width: 1400px;
+            max-width: 1450px;
             width: 100%;
             position: relative;
             z-index: 5;
@@ -58,10 +59,10 @@
             justify-content: center;
         }
 
-        /* cartes : AUCUN encadrement */
+        /* Cartes SANS encadrement */
         .card {
             background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(10px);
             border-radius: 2rem;
             padding: 2rem 1.8rem;
             transition: all 0.3s ease;
@@ -75,68 +76,91 @@
         }
 
         .admin-zone {
-            flex: 1.3;
-            min-width: 280px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(16px);
+            flex: 1.4;
+            min-width: 300px;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(14px);
         }
 
-        /* accueil rouge / noir */
+        /* Logo ZETSU stylé */
         .logo {
-            font-size: 2.6rem;
+            font-size: 2.8rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #FF3A3A, #FF8C42, #FFD966);
+            background: linear-gradient(135deg, #EEEEEE, #AAAAAA, #FFFFFF);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             letter-spacing: -0.02em;
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 8px rgba(255, 50, 50, 0.5);
+            text-shadow: 0 0 12px rgba(255,255,255,0.3);
         }
 
         .tagline {
-            color: #ffbb88;
+            color: #dddddd;
             font-weight: 500;
             font-size: 0.9rem;
             margin-bottom: 2rem;
             padding-left: 0.9rem;
             opacity: 0.95;
-            border-left: 3px solid #ff4444;
+        }
+
+        /* Cadre défilant des citations */
+        .zetsu-scroll {
+            background: rgba(0,0,0,0.5);
+            border-radius: 1.5rem;
+            padding: 1rem;
+            margin-bottom: 1.8rem;
+            height: 110px;
+            overflow: hidden;
+            position: relative;
+        }
+        .scrolling-quotes {
+            display: flex;
+            flex-direction: column;
+            animation: scrollUp 18s linear infinite;
+        }
+        .scrolling-quotes p {
+            color: #ffddbb;
+            font-size: 0.85rem;
+            padding: 8px 12px;
+            margin: 4px 0;
+            border-left: 2px solid #ffaa44;
+            font-style: italic;
+        }
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
         }
 
         .input-group {
             margin-bottom: 1.6rem;
         }
-
         .input-group label {
             display: block;
-            color: #ffccaa;
+            color: #dddddd;
             font-weight: 500;
             margin-bottom: 0.5rem;
             font-size: 0.85rem;
         }
-
         .input-group input, .input-group textarea {
             width: 100%;
             background: rgba(20, 18, 25, 0.9);
-            border: 1px solid rgba(255, 80, 80, 0.5);
+            border: none;
             border-radius: 2rem;
             padding: 0.9rem 1.2rem;
-            color: #fff4e2;
+            color: #ffffff;
             font-size: 0.95rem;
             font-family: monospace;
             transition: 0.25s;
             outline: none;
         }
-
         .input-group input:focus, .input-group textarea:focus {
-            border-color: #ff4444;
-            box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.3);
-            background: #0f0f1a;
+            box-shadow: 0 0 0 2px rgba(200,200,200,0.5);
+            background: #1a1a2a;
         }
 
         .btn-primary {
-            background: linear-gradient(100deg, #e63946, #b91c1c);
+            background: linear-gradient(100deg, #3a3a3a, #1a1a1a);
             border: none;
             width: 100%;
             padding: 0.9rem;
@@ -146,55 +170,44 @@
             color: white;
             cursor: pointer;
             transition: 0.2s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         }
-
         .btn-primary:hover {
+            background: linear-gradient(100deg, #555, #2a2a2a);
             transform: translateY(-2px);
-            background: linear-gradient(100deg, #ff4d4d, #cc0000);
         }
-
+        .btn-red {
+            background: linear-gradient(100deg, #8b2c2c, #4a1010);
+        }
         .coding-message-container {
             margin-top: 2rem;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0,0,0,0.6);
             border-radius: 1.8rem;
             padding: 1rem;
         }
-
         .generated-message {
-            background: #0a0505cc;
+            background: #0a0a0acc;
             border-radius: 1.5rem;
             padding: 1.4rem;
-            font-family: 'Fira Code', 'Courier New', monospace;
-            font-size: 0.9rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
             line-height: 1.45;
-            color: #ffddbb;
+            color: #f0f0f0;
             white-space: pre-wrap;
-            word-break: break-word;
-            backdrop-filter: blur(4px);
         }
-
         .typing-cursor {
             display: inline-block;
             width: 2px;
             height: 1.2rem;
-            background-color: #ff5555;
+            background-color: #cccccc;
             vertical-align: middle;
-            margin-left: 2px;
             animation: blink 1s step-end infinite;
         }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
+        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
         .btn-icon-group {
             display: flex;
             gap: 12px;
             margin-top: 1rem;
         }
-
         .btn-secondary {
             background: #2c2e3e;
             border: none;
@@ -203,400 +216,243 @@
             font-weight: 600;
             color: #ffdd99;
             cursor: pointer;
-            flex: 1;
-            transition: 0.2s;
+            flex:1;
         }
-
-        .btn-wa {
-            background: #25D366;
-            color: #0a0c12;
-        }
-
-        .badge-admin {
-            background: #b91c1caa;
-            padding: 0.2rem 0.8rem;
-            border-radius: 2rem;
-            font-size: 0.7rem;
-            font-weight: bold;
-            color: #ffd5b0;
-        }
-        .admin-lock {
-            background: rgba(0,0,0,0.6);
-            border-radius: 2rem;
-            padding: 0.8rem;
-            margin-bottom: 1rem;
-        }
-        .admin-lock input {
-            background: #20222e;
-            border: 1px solid #ff5555;
-            border-radius: 2rem;
-            padding: 0.5rem 1rem;
-            color: white;
-            width: 70%;
-        }
-        .admin-lock button {
-            background: #ff5555;
-            border: none;
-            border-radius: 2rem;
-            padding: 0.5rem 1rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .admin-content {
-            display: none;
-        }
-        .admin-content.active {
-            display: block;
-        }
-        .support-item {
-            background: #1e1a1fcc;
-            border-radius: 1.2rem;
-            padding: 0.8rem;
-            margin-bottom: 0.8rem;
-            font-family: monospace;
-            font-size: 0.75rem;
-            color: #f5cfb5;
-            word-break: break-word;
-        }
-        .support-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 6px;
-            margin-top: 6px;
-        }
-        .support-actions button {
-            background: #6e2c2c;
-            border: none;
-            color: white;
-            border-radius: 1rem;
-            padding: 0.2rem 0.8rem;
-            font-size: 0.65rem;
-            cursor: pointer;
-        }
-        textarea.admin-msg-input {
-            width: 100%;
-            background: #1a141f;
-            border-radius: 1.2rem;
-            padding: 0.7rem;
-            border: 1px solid #ff5555;
-            color: white;
-            margin: 0.5rem 0;
-        }
-        hr {
-            margin: 1rem 0;
-            border-color: #ff555550;
-        }
-        .small-note {
-            font-size: 0.65rem;
-            color: #ddb582;
-            text-align: center;
-            margin-top: 1rem;
-        }
-        @media (max-width: 850px) {
-            .card { padding: 1.5rem; }
-            .logo { font-size: 2rem; }
-        }
+        .btn-wa { background: #25D366; color:#000; }
+        .badge-admin { background: #444; padding: 0.2rem 0.8rem; border-radius: 2rem; font-size:0.7rem; color:#ffd966; }
+        .admin-lock { background: #111; border-radius: 2rem; padding: 0.8rem; margin-bottom:1rem; }
+        .admin-lock input { background: #2a2a2a; border:none; border-radius: 2rem; padding:0.5rem 1rem; color:white; width:70%; }
+        .admin-lock button { background: #666; border:none; border-radius:2rem; padding:0.5rem 1rem; font-weight:bold; cursor:pointer; }
+        .admin-content { display: none; }
+        .admin-content.active { display: block; }
+        .support-item { background: #1e1a1fcc; border-radius: 1.2rem; padding: 0.8rem; margin-bottom:0.8rem; font-family: monospace; font-size:0.75rem; color:#f5cfb5; }
+        .support-actions { display: flex; justify-content: flex-end; gap:6px; margin-top:6px; }
+        .support-actions button { background:#5a2e2e; border:none; color:white; border-radius:1rem; padding:0.2rem 0.8rem; cursor:pointer; }
+        textarea.admin-msg-input { width:100%; background:#1f1a24; border-radius:1.2rem; padding:0.7rem; border:none; color:white; margin:0.5rem 0; }
+        hr { margin:1rem 0; border-color:#555; }
+        .small-note { font-size:0.65rem; color:#bbaa88; text-align:center; margin-top:1rem; }
+        @media (max-width:850px){ .card{ padding:1.5rem; } .logo{ font-size:2rem; } }
     </style>
 </head>
 <body>
 
-    <!-- FOND VIDÉO -->
     <video autoplay muted loop playsinline class="video-background">
         <source src="IMG_7494.MOV" type="video/mp4">
-        Votre navigateur ne supporte pas la vidéo.
     </video>
-    <!-- overlay rouge élégant -->
-    <div class="overlay-red"></div>
-
-    <!-- MUSIQUE DE FOND (auto-jouée possible avec un geste utilisateur requis par certains navigateurs) -->
+    <div class="overlay-monochrome"></div>
     <audio id="bgMusic" loop preload="auto">
         <source src="ma_musique.mp3.m4a" type="audio/mp4">
-        <source src="ma_musique.mp3.m4a" type="audio/mpeg">
-        Votre navigateur ne supporte pas la musique.
     </audio>
 
-<div class="zetsu-world">
-    <div class="reporter-grid">
-        <!-- ZONE PUBLIQUE -->
-        <div class="card user-zone">
-            <div class="logo">𝐙𝐄𝐓𝐒𝐔 REPORTER</div>
-            <div class="tagline">⚡ Signalez un numéro frauduleux → Générez un message professionnel pour exiger son BLOCAGE (WhatsApp)</div>
-            
-            <div class="input-group">
-                <label>📞 Numéro (avec indicatif) :</label>
-                <input type="text" id="reportNumber" placeholder="+33756987123 ou +221709000000" autocomplete="off">
-            </div>
-            <div class="input-group">
-                <label>📝 Cause précise :</label>
-                <textarea id="reportCause" rows="2" placeholder="Ex: menace de mort, usurpation d'identité bancaire, tentative d'arnaque..."></textarea>
-            </div>
-            <button id="generateCodingBtn" class="btn-primary">🔴 GÉNÉRER LE MESSAGE DE BLOCAGE</button>
-            
-            <div id="messageZone" style="margin-top: 1.5rem; display: none;">
-                <div class="coding-message-container">
-                    <div id="dynamicMessageBox" class="generated-message"></div>
-                    <div class="btn-icon-group">
-                        <button id="copyFinalMsg" class="btn-secondary">📋 COPIER</button>
-                        <button id="whatsappFinalBtn" class="btn-secondary btn-wa">💬 ENVOYER SUR WHATSAPP (blocage)</button>
+    <!-- ÉCRAN DE VERROUILLAGE GLOBAL CODE = 2022 -->
+    <div id="globalLockScreen" style="position:fixed; inset:0; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index:1000; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:20px;">
+        <div style="background:#111; padding:2rem; border-radius:2rem; text-align:center; max-width:350px;">
+            <h2 style="color:#ffcc88;">🔐 ACCÈS ZETSU</h2>
+            <p style="color:#ccc;">Entrez le code d'accès au site</p>
+            <input type="password" id="globalPassInput" style="padding:12px; width:100%; border-radius:2rem; border:none; margin:15px 0; text-align:center;">
+            <button id="globalUnlockBtn" style="background:#555; border:none; padding:10px 20px; border-radius:2rem; color:white; font-weight:bold;">VALIDER</button>
+            <div id="globalErrorMsg" style="color:#ff8866; margin-top:12px;"></div>
+        </div>
+    </div>
+
+    <div id="mainSiteContent" style="display:none;">
+        <div class="zetsu-world">
+            <div class="reporter-grid">
+                <!-- ZONE PUBLIQUE -->
+                <div class="card user-zone">
+                    <div class="logo">𝐙𝐄𝐓𝐒𝐔 REPORTER</div>
+                    <div class="tagline">⚡ Signalez un numéro frauduleux → Message ultra convaincant pour exiger son BLOCAGE</div>
+
+                    <!-- CITATIONS ZETSU (cadre qui monte) -->
+                    <div class="zetsu-scroll">
+                        <div class="scrolling-quotes" id="quotesScroller">
+                            <p>⚔️ L'empire ZETSU ne recule devant aucune menace. La sécurité du peuple est notre devoir.</p>
+                            <p>🛡️ Un numéro signalé, c'est une fraude en moins. Chaque action compte.</p>
+                            <p>🔥 La vérité émerge toujours. Les fraudeurs tombent face à l'union des justiciers.</p>
+                            <p>📢 Ensemble, nous brisons les chaînes de l'arnaque. ZETSU protecteur.</p>
+                            <p>⚡ Le silence est complice. Signalez, bloquez, libérez la communauté.</p>
+                            <p>🕯️ ZETSU veille. Chaque signalement est une flèche contre l'ombre.</p>
+                            <!-- doublon pour effet infini -->
+                            <p>⚔️ L'empire ZETSU ne recule devant aucune menace. La sécurité du peuple est notre devoir.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>📞 Numéro (indicatif obligatoire) :</label>
+                        <input type="text" id="reportNumber" placeholder="+33756987123 ou +221709000000">
+                    </div>
+                    <div class="input-group">
+                        <label>📝 Cause / détails :</label>
+                        <textarea id="reportCause" rows="2" placeholder="Ex: menace, usurpation bancaire, tentative d'arnaque..."></textarea>
+                    </div>
+                    <button id="generateCodingBtn" class="btn-primary">🔴 GÉNÉRER LE MESSAGE DE BLOCAGE</button>
+                    
+                    <div id="messageZone" style="margin-top: 1.5rem; display: none;">
+                        <div class="coding-message-container">
+                            <div id="dynamicMessageBox" class="generated-message"></div>
+                            <div class="btn-icon-group">
+                                <button id="copyFinalMsg" class="btn-secondary">📋 COPIER</button>
+                                <button id="whatsappFinalBtn" class="btn-secondary btn-wa">💬 WHATSAPP (blocage)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADMIN ZONE -->
+                <div class="card admin-zone">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                        <h3 style="color:#ff9f6e;">🛡️ ESPACE ADMIN</h3>
+                        <span class="badge-admin">ZETSU VAULT</span>
+                    </div>
+                    <div class="admin-lock">
+                        <label style="color:#ffbc8c;">🔐 Code admin :</label>
+                        <div style="display:flex; gap:0.4rem; margin-top:6px;">
+                            <input type="password" id="adminCodeInput" placeholder="222200">
+                            <button id="unlockAdminBtn">Déverrouiller</button>
+                        </div>
+                        <div id="adminError" style="color:#ff7a5c; font-size:0.7rem; margin-top:6px;"></div>
+                    </div>
+                    
+                    <div id="adminProtectedPanel" class="admin-content">
+                        <label>📌 Déposer un support (convaincant)</label>
+                        <textarea id="newSupportText" class="admin-msg-input" rows="2" placeholder="FRAUD ALERT: This number is extremely dangerous. Block immediately. Report to police."></textarea>
+                        <button id="addSupportBtn" class="btn-primary" style="background:#5a2e2e;">➕ DÉPOSER</button>
+                        <hr>
+                        <label>⚡ GÉNÉRATEUR ULTRA PUISSANT (admin)</label>
+                        <div style="display:flex; gap:8px;">
+                            <input type="text" id="adminQuickNumber" placeholder="+Numéro" style="flex:2; background:#1f1a24; border:none; border-radius:2rem; padding:10px;">
+                            <button id="generateUltraPowerfulBtn" class="btn-primary" style="background:#8b3a3a;">ULTRA</button>
+                        </div>
+                        <div id="ultraMessagePreview" class="generated-message" style="margin-top:12px; font-size:0.7rem; padding:10px;"></div>
+                        <hr>
+                        <div><strong style="color:#ff9f6e;">📚 SUPPORTS OFFICIELS</strong></div>
+                        <div id="adminSupportsList" style="max-height: 250px; overflow-y: auto; margin-top: 12px;"></div>
+                        <button id="clearAllAdminBtn" style="background:#3a1a1a; width:100%; margin-top:12px; border:none; border-radius:2rem; padding:6px; color:white;">🗑️ TOUT EFFACER</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- PANEL ADMIN (code 222200) -->
-        <div class="card admin-zone">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <h3 style="color:#ff9f6e; font-weight:600;">🛡️ ESPACE ADMIN</h3>
-                <span class="badge-admin">ZETSU VAULT</span>
-            </div>
-            <div class="admin-lock">
-                <label style="color:#ffbc8c; font-size:0.75rem;">🔐 Code admin :</label>
-                <div style="display: flex; gap: 0.4rem; margin-top: 6px;">
-                    <input type="password" id="adminCodeInput" placeholder="Entrez le code" autocomplete="off">
-                    <button id="unlockAdminBtn">Déverrouiller</button>
-                </div>
-                <div id="adminError" style="color:#ff7a5c; font-size:0.7rem; margin-top:6px;"></div>
-            </div>
-            
-            <div id="adminProtectedPanel" class="admin-content">
-                <label style="color:#ffbc8c;">📌 Déposer un support (anglais, sans emoji inutile, impactant)</label>
-                <textarea id="newSupportText" class="admin-msg-input" rows="2" placeholder="FRAUD ALERT: This number is dangerous. Please block it immediately. Report to police."></textarea>
-                <button id="addSupportBtn" class="btn-primary" style="background:#8b3c3c; margin-bottom:10px;">➕ DÉPOSER LE SUPPORT</button>
-                <hr>
-                <div><strong style="color:#ff9f6e;">📚 SUPPORTS OFFICIELS (admin)</strong></div>
-                <div id="adminSupportsList" style="max-height: 280px; overflow-y: auto; margin-top: 12px;"></div>
-                <button id="clearAllAdminBtn" style="background:#5e2424; width:100%; margin-top:12px; border:none; border-radius:2rem; padding:6px; color:white;">🗑️ TOUT EFFACER (admin)</button>
-                <div class="small-note">Cliquez sur un support pour le charger → effet codage</div>
-            </div>
-        </div>
     </div>
-</div>
 
 <script>
-    // ========== ADMIN CODE = 222200 ==========
-    const ADMIN_SECRET_CODE = "222200";
+    // ========== SITE GLOBAL CODE = 2022 ==========
+    const GLOBAL_SITE_CODE = "2022";
+    const ADMIN_SECRET = "222200";
     let adminUnlocked = false;
     let adminSupports = [];
 
     // DOM elements
-    const numberInput = document.getElementById('reportNumber');
-    const causeInput = document.getElementById('reportCause');
-    const generateBtn = document.getElementById('generateCodingBtn');
-    const messageZoneDiv = document.getElementById('messageZone');
-    const dynamicMsgBox = document.getElementById('dynamicMessageBox');
-    const copyBtn = document.getElementById('copyFinalMsg');
-    const whatsappBtn = document.getElementById('whatsappFinalBtn');
-    
-    const adminCodeInput = document.getElementById('adminCodeInput');
-    const unlockBtn = document.getElementById('unlockAdminBtn');
-    const adminErrorSpan = document.getElementById('adminError');
-    const adminPanelDiv = document.getElementById('adminProtectedPanel');
-    const newSupportTextarea = document.getElementById('newSupportText');
-    const addSupportBtn = document.getElementById('addSupportBtn');
-    const adminSupportsContainer = document.getElementById('adminSupportsList');
-    const clearAllAdminBtn = document.getElementById('clearAllAdminBtn');
+    const globalLockDiv = document.getElementById('globalLockScreen');
+    const mainContent = document.getElementById('mainSiteContent');
+    const globalPassInput = document.getElementById('globalPassInput');
+    const globalUnlockBtn = document.getElementById('globalUnlockBtn');
+    const globalErrorMsg = document.getElementById('globalErrorMsg');
 
-    // Musique : tentative de lecture automatique (nécessite interaction utilisateur sinon mute)
+    globalUnlockBtn.addEventListener('click', () => {
+        if (globalPassInput.value.trim() === GLOBAL_SITE_CODE) {
+            globalLockDiv.style.display = 'none';
+            mainContent.style.display = 'block';
+            tryAutoPlayMusic();
+        } else {
+            globalErrorMsg.innerText = "Code incorrect. Accès refusé.";
+        }
+    });
+
+    // Musique
     const bgMusic = document.getElementById('bgMusic');
     function tryAutoPlayMusic() {
-        bgMusic.play().catch(e => {
-            console.log("Musique en attente d'interaction");
-            document.body.addEventListener('click', () => bgMusic.play(), { once: true });
-        });
+        bgMusic.play().catch(e => console.log("musique en attente"));
+        document.body.addEventListener('click', () => bgMusic.play(), { once: true });
     }
-    tryAutoPlayMusic();
 
-    // ========== MESSAGE TRÈS CONVAINCANT, SANS ÉMOJIS INUTILES ==========
+    // ========== MESSAGE TRÈS CONVAINCANT (sans emojis inutiles) ==========
     function buildPowerfulMessage(number, cause) {
-        let cleanNum = number.trim();
-        if (!cleanNum) cleanNum = "[UNKNOWN NUMBER]";
-        let cleanCause = cause.trim();
-        if (!cleanCause) cleanCause = "Fraudulent / malicious behavior reported by victim.";
-
-        const header = "FRAUD & SCAM ALERT - OFFICIAL REPORT";
-        const numLine = "Phone number: " + cleanNum;
-        const detailLine = "Incident details: " + cleanCause;
-        const verdict = "VERDICT: Confirmed malicious operation. This number is used for criminal activity (scam, threats, identity theft).";
-        const blockRequest = "ACTION REQUIRED: Please block this number immediately to prevent further harm. Report to local authorities and telecom regulator.";
-        const safetyMsg = "Do not answer, do not call back. Share this warning with your contacts.";
-        
-        let finalMsg = `${header}\n${numLine}\n${detailLine}\n${verdict}\n${blockRequest}\n${safetyMsg}`;
-        // Suppression des espaces en trop, aucun hashtag, aucun emoji parasite
-        finalMsg = finalMsg.replace(/\s+/g, ' ').replace(/ \n/g, '\n').replace(/\n /g, '\n').trim();
-        finalMsg = finalMsg.replace(/[#]\S+/g, '');
-        return finalMsg;
+        let cleanNum = number.trim() || "[UNKNOWN]";
+        let cleanCause = cause.trim() || "Fraudulent behavior";
+        return `FRAUD & SCAM ALERT - OFFICIAL REPORT\nPhone number: ${cleanNum}\nIncident details: ${cleanCause}\nVERDICT: Confirmed malicious operation. This number is used for criminal activities (scams, threats, identity theft).\nACTION REQUIRED: Please block this number immediately to prevent further harm. Report to local authorities and telecom regulator.\nDo not answer. Share this warning.`;
     }
 
-    // Effet de codage lent
-    async function animateCodingMessage(targetText) {
-        messageZoneDiv.style.display = 'block';
-        dynamicMsgBox.innerHTML = '';
+    // Ultra puissant admin (encore plus percutant)
+    function buildUltraPowerful(number) {
+        let n = number.trim() || "[UNKNOWN]";
+        return `EMERGENCY FRAUD ALERT - HIGH THREAT\nNUMBER: ${n}\nCLASSIFICATION: Dangerous scam / fraudulent line. Used for extortion, phishing or impersonation.\nREQUEST: Immediate blocking by operator and authorities. This number has been flagged by ZETSU security network.\nDo not call back. Report to cyber police. Share this alert.`;
+    }
+
+    async function animateCodingMessage(targetText, targetElement) {
+        const msgZone = document.getElementById('messageZone');
+        const dynamicBox = document.getElementById('dynamicMessageBox');
+        if(targetElement === dynamicBox) msgZone.style.display = 'block';
+        targetElement.innerHTML = '';
         let displayed = '';
-        const chars = targetText.split('');
-        for (let i = 0; i < chars.length; i++) {
-            displayed += chars[i];
-            dynamicMsgBox.innerHTML = displayed + '<span class="typing-cursor"></span>';
-            await new Promise(r => setTimeout(r, Math.floor(Math.random() * 30) + 15));
+        for(let i=0; i<targetText.length; i++) {
+            displayed += targetText[i];
+            targetElement.innerHTML = displayed + '<span class="typing-cursor"></span>';
+            await new Promise(r => setTimeout(r, Math.floor(Math.random()*25)+12));
         }
-        dynamicMsgBox.innerHTML = displayed;
+        targetElement.innerHTML = displayed;
         window.currentPowerfulMsg = targetText;
     }
 
-    function triggerGeneration() {
-        const number = numberInput.value;
-        const cause = causeInput.value;
-        if (!number.trim()) {
-            alert("Veuillez entrer un numéro de téléphone.");
-            return false;
-        }
-        if (!cause.trim()) {
-            alert("Veuillez décrire la cause / les détails du signalement.");
-            return false;
-        }
-        const powerfulMsg = buildPowerfulMessage(number, cause);
-        animateCodingMessage(powerfulMsg);
-        return true;
-    }
+    // génération publique
+    const numberInput = document.getElementById('reportNumber');
+    const causeInput = document.getElementById('reportCause');
+    const generateBtn = document.getElementById('generateCodingBtn');
+    const dynamicMsgBox = document.getElementById('dynamicMessageBox');
+    const copyBtn = document.getElementById('copyFinalMsg');
+    const whatsappBtn = document.getElementById('whatsappFinalBtn');
 
-    generateBtn.addEventListener('click', triggerGeneration);
-
-    copyBtn.addEventListener('click', () => {
-        if (window.currentPowerfulMsg) {
-            navigator.clipboard.writeText(window.currentPowerfulMsg);
-            alert("Message copié !");
-        } else {
-            alert("Générez d'abord un message.");
-        }
+    generateBtn.addEventListener('click', () => {
+        let num = numberInput.value, cause = causeInput.value;
+        if(!num.trim()) { alert("Numéro requis."); return; }
+        if(!cause.trim()) { alert("Cause requise."); return; }
+        let msg = buildPowerfulMessage(num, cause);
+        animateCodingMessage(msg, dynamicMsgBox);
     });
+    copyBtn.addEventListener('click', () => { if(window.currentPowerfulMsg) { navigator.clipboard.writeText(window.currentPowerfulMsg); alert("Copié !"); } else alert("Générez d'abord."); });
+    whatsappBtn.addEventListener('click', () => { if(window.currentPowerfulMsg) window.open(`https://wa.me/?text=${encodeURIComponent(window.currentPowerfulMsg)}`, '_blank'); else alert("Générez d'abord."); });
 
-    whatsappBtn.addEventListener('click', () => {
-        if (window.currentPowerfulMsg) {
-            const encoded = encodeURIComponent(window.currentPowerfulMsg);
-            window.open(`https://wa.me/?text=${encoded}`, '_blank');
-        } else {
-            alert("Aucun message généré.");
-        }
-    });
-
-    // ========== ADMIN STORAGE ==========
-    function saveSupportsToLocal() {
-        localStorage.setItem('zetsu_admin_supports_222', JSON.stringify(adminSupports));
-    }
-
+    // Admin Storage
+    function saveSupports() { localStorage.setItem('zetsu_admin_supports_222', JSON.stringify(adminSupports)); }
     function loadSupports() {
-        const stored = localStorage.getItem('zetsu_admin_supports_222');
-        if (stored) {
-            try {
-                adminSupports = JSON.parse(stored);
-            } catch(e) { adminSupports = []; }
-        }
-        if (!adminSupports.length) {
-            adminSupports = [
-                "FRAUD ALERT: This number impersonates bank agents. Request immediate block. Report to authorities.",
-                "URGENT: This number sends death threats and extortion messages. Block now. Inform cyber police.",
-                "SCAM WARNING: Fake technical support. Do not share any data. Telecom operator must block this line."
-            ];
-            saveSupportsToLocal();
-        }
-        renderAdminSupportsList();
+        let stored = localStorage.getItem('zetsu_admin_supports_222');
+        if(stored) try { adminSupports = JSON.parse(stored); } catch(e) { adminSupports = []; }
+        if(!adminSupports.length) adminSupports = ["FRAUD ALERT: This number impersonates bank agents. Request immediate block. Report to authorities.","URGENT: This number sends death threats and extortion. Block now. Inform cyber police.","SCAM WARNING: Fake technical support. Do not share any data. Block this line."];
+        saveSupports(); renderAdminList();
+    }
+    function renderAdminList() {
+        const container = document.getElementById('adminSupportsList');
+        if(!container) return;
+        if(adminSupports.length===0) { container.innerHTML='<div>Aucun support.</div>'; return; }
+        let html='';
+        adminSupports.forEach((s,i) => { html+=`<div class="support-item"><div>${s.replace(/</g,'&lt;')}</div><div class="support-actions"><button class="load-support" data-idx="${i}">UTILISER</button><button class="del-support" data-idx="${i}">SUPPR</button></div></div>`; });
+        container.innerHTML=html;
+        document.querySelectorAll('.load-support').forEach(btn=>btn.addEventListener('click',(e)=>{ let idx=btn.dataset.idx; if(adminSupports[idx]) animateCodingMessage(adminSupports[idx], dynamicMsgBox); }));
+        document.querySelectorAll('.del-support').forEach(btn=>btn.addEventListener('click',(e)=>{ if(adminUnlocked){ adminSupports.splice(btn.dataset.idx,1); saveSupports(); renderAdminList(); } else alert("Admin non déverrouillé"); }));
     }
 
-    function renderAdminSupportsList() {
-        if (!adminSupportsContainer) return;
-        if (adminSupports.length === 0) {
-            adminSupportsContainer.innerHTML = '<div style="color:#ddb582; padding:10px;">Aucun support. Ajoutez-en via le dépôt admin.</div>';
-            return;
-        }
-        let html = '';
-        adminSupports.forEach((sup, idx) => {
-            const safeSup = sup.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            html += `
-                <div class="support-item">
-                    <div style="word-break:break-word;">${safeSup}</div>
-                    <div class="support-actions">
-                        <button class="load-support-btn" data-idx="${idx}">UTILISER</button>
-                        <button class="delete-support-btn" data-idx="${idx}">SUPPR</button>
-                    </div>
-                </div>
-            `;
-        });
-        adminSupportsContainer.innerHTML = html;
-        
-        document.querySelectorAll('.load-support-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const idx = parseInt(btn.getAttribute('data-idx'), 10);
-                if (!isNaN(idx) && adminSupports[idx]) {
-                    animateCodingMessage(adminSupports[idx]);
-                }
-            });
-        });
-        document.querySelectorAll('.delete-support-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const idx = parseInt(btn.getAttribute('data-idx'), 10);
-                if (!isNaN(idx) && adminUnlocked) {
-                    adminSupports.splice(idx, 1);
-                    saveSupportsToLocal();
-                    renderAdminSupportsList();
-                } else if (!adminUnlocked) {
-                    adminErrorSpan.innerText = "Déverrouillez l'admin d'abord !";
-                }
-            });
-        });
-    }
+    // Admin Panel unlock
+    const adminCodeInput = document.getElementById('adminCodeInput');
+    const unlockAdminBtn = document.getElementById('unlockAdminBtn');
+    const adminErrorSpan = document.getElementById('adminError');
+    const adminPanelDiv = document.getElementById('adminProtectedPanel');
+    const addSupportBtn = document.getElementById('addSupportBtn');
+    const newSupportText = document.getElementById('newSupportText');
+    const clearAllAdminBtn = document.getElementById('clearAllAdminBtn');
+    const adminQuickNumber = document.getElementById('adminQuickNumber');
+    const generateUltraBtn = document.getElementById('generateUltraPowerfulBtn');
+    const ultraPreview = document.getElementById('ultraMessagePreview');
 
-    addSupportBtn.addEventListener('click', () => {
-        if (!adminUnlocked) {
-            adminErrorSpan.innerText = "Accès refusé : entrez le code 222200.";
-            return;
-        }
-        const newSupport = newSupportTextarea.value.trim();
-        if (!newSupport) {
-            alert("Le support ne peut pas être vide.");
-            return;
-        }
-        if (newSupport.toLowerCase().includes('objet')) {
-            alert("Le mot 'Objet' n'est pas autorisé.");
-            return;
-        }
-        adminSupports.push(newSupport);
-        saveSupportsToLocal();
-        renderAdminSupportsList();
-        newSupportTextarea.value = '';
-        adminErrorSpan.innerText = "Support ajouté.";
-        setTimeout(() => { if(adminErrorSpan) adminErrorSpan.innerText = ""; }, 2000);
+    unlockAdminBtn.addEventListener('click',()=>{
+        if(adminCodeInput.value.trim()===ADMIN_SECRET){ adminUnlocked=true; adminPanelDiv.classList.add('active'); adminErrorSpan.innerText="Admin activé"; renderAdminList(); }
+        else { adminUnlocked=false; adminPanelDiv.classList.remove('active'); adminErrorSpan.innerText="Code 222200 requis"; }
     });
-
-    clearAllAdminBtn.addEventListener('click', () => {
-        if (!adminUnlocked) {
-            adminErrorSpan.innerText = "Code 222200 requis.";
-            return;
-        }
-        if (confirm("Supprimer TOUS les supports ?")) {
-            adminSupports = [];
-            saveSupportsToLocal();
-            renderAdminSupportsList();
-        }
-    });
-
-    unlockBtn.addEventListener('click', () => {
-        const entered = adminCodeInput.value.trim();
-        if (entered === ADMIN_SECRET_CODE) {
-            adminUnlocked = true;
-            adminPanelDiv.classList.add('active');
-            adminErrorSpan.innerText = "Mode admin activé.";
-            renderAdminSupportsList();
-        } else {
-            adminErrorSpan.innerText = "Code incorrect.";
-            adminUnlocked = false;
-            adminPanelDiv.classList.remove('active');
-        }
-    });
+    addSupportBtn.addEventListener('click',()=>{ if(!adminUnlocked){ alert("Déverrouillez admin"); return; } let txt=newSupportText.value.trim(); if(txt) { adminSupports.push(txt); saveSupports(); renderAdminList(); newSupportText.value=""; } });
+    clearAllAdminBtn.addEventListener('click',()=>{ if(adminUnlocked && confirm("Effacer tous ?")){ adminSupports=[]; saveSupports(); renderAdminList(); } });
+    generateUltraBtn.addEventListener('click',()=>{ let num=adminQuickNumber.value; if(!num) { alert("Entrez un numéro"); return; } let ultraMsg=buildUltraPowerful(num); ultraPreview.innerText=ultraMsg; animateCodingMessage(ultraMsg, ultraPreview); });
 
     loadSupports();
     adminPanelDiv.classList.remove('active');
-    adminUnlocked = false;
+    adminUnlocked=false;
 </script>
 </body>
 </html>
