@@ -138,7 +138,6 @@
             opacity: 0.95;
         }
 
-        /* double boutons : signalement ET déblocage */
         .double-btns {
             display: flex;
             gap: 12px;
@@ -286,17 +285,9 @@
         }
         .btn-wa { background: #25D366; color:#000; }
 
-        /* ADMIN */
         .badge-admin { background: #444; padding: 0.2rem 0.8rem; border-radius: 2rem; font-size:0.7rem; color:#ffd966; }
         .admin-lock { background: #111; border-radius: 2rem; padding: 0.8rem; margin-bottom:1rem; }
-        .admin-lock input { 
-            background: #2a2a2a; 
-            border: none; 
-            border-radius: 2rem; 
-            padding: 0.5rem 1rem; 
-            color: white; 
-            width: 70%; 
-        }
+        .admin-lock input { background: #2a2a2a; border: none; border-radius: 2rem; padding: 0.5rem 1rem; color: white; width: 70%; }
         .admin-lock input::placeholder { color: #666; }
         .admin-lock button { background: #666; border: none; border-radius:2rem; padding:0.5rem 1rem; font-weight:bold; cursor:pointer; color:white; }
         .admin-content { display: none; }
@@ -333,9 +324,9 @@
 
     <div id="mainSiteContent" style="display:none;">
         <div class="zetsu-world">
-            <!-- BANNIÈRE LUFFY GEAR 5 -->
+            <!-- BANNIÈRE LUFFY GEAR 5 AVEC LIEN EN LIGNE FIABLE -->
             <div class="luffy-banner">
-                <img src="luffy_gear5.gif" alt="Luffy Gear 5" onerror="this.src='luffy_gear5.png'; this.onerror=null;">
+                <img src="https://media.tenor.com/xB5h5V5V5V0AAAAi/luffy-gear-5.gif" alt="Luffy Gear 5" style="height:70px; width:auto; border-radius:50%; object-fit:cover; border:2px solid #ffcc66; box-shadow:0 0 20px rgba(255,200,100,0.3); animation:pulseGlow 2s ease-in-out infinite;">
                 <h1>⚡ <span>ZETSU</span> REPORTER ⚡</h1>
             </div>
 
@@ -345,7 +336,6 @@
                     <div class="logo">𝐙𝐄𝐓𝐒𝐔</div>
                     <div class="tagline">🔹 Signalez un numéro frauduleux ou demandez le déblocage de votre compte</div>
 
-                    <!-- CITATIONS ZETSU (cadre qui monte) -->
                     <div class="zetsu-scroll">
                         <div class="scrolling-quotes" id="quotesScroller">
                             <p>⚔️ L'empire ZETSU ne recule devant aucune menace. La sécurité du peuple est notre devoir.</p>
@@ -358,13 +348,11 @@
                         </div>
                     </div>
 
-                    <!-- MODE : Blocage OU Déblocage -->
                     <div class="double-btns">
                         <button id="modeBlockBtn" class="btn-block active-mode">🚫 SIGNALER / BLOQUER</button>
                         <button id="modeUnblockBtn" class="btn-unblock">🔓 DÉBLOQUER MON COMPTE</button>
                     </div>
 
-                    <!-- Champs dynamiques selon le mode -->
                     <div id="blockFields">
                         <div class="input-group">
                             <label>📞 Numéro frauduleux (avec indicatif) :</label>
@@ -387,7 +375,7 @@
                         </div>
                     </div>
 
-                    <button id="generateBtn" class="btn-primary">🔴 GÉNÉRER LE MESSAGE</button>
+                    <button id="generateBtn" class="btn-primary btn-red">🔴 GÉNÉRER LE MESSAGE DE BLOCAGE</button>
                     
                     <div id="messageZone" style="margin-top: 1.5rem; display: none;">
                         <div class="coding-message-container">
@@ -443,9 +431,8 @@
     const ADMIN_SECRET = "222200";
     let adminUnlocked = false;
     let adminSupports = [];
-    let currentMode = 'block'; // 'block' ou 'unblock'
+    let currentMode = 'block';
 
-    // DOM elements
     const globalLockDiv = document.getElementById('globalLockScreen');
     const mainContent = document.getElementById('mainSiteContent');
     const globalPassInput = document.getElementById('globalPassInput');
@@ -463,14 +450,13 @@
     });
     globalPassInput.addEventListener('keyup', (e) => { if(e.key === 'Enter') globalUnlockBtn.click(); });
 
-    // Musique
     const bgMusic = document.getElementById('bgMusic');
     function tryAutoPlayMusic() {
         bgMusic.play().catch(e => console.log("musique en attente"));
         document.body.addEventListener('click', () => bgMusic.play(), { once: true });
     }
 
-    // ========== MODE : BLOCAGE ou DÉBLOCAGE ==========
+    // MODE
     const modeBlockBtn = document.getElementById('modeBlockBtn');
     const modeUnblockBtn = document.getElementById('modeUnblockBtn');
     const blockFields = document.getElementById('blockFields');
@@ -497,7 +483,7 @@
         generateBtn.className = 'btn-primary btn-blue';
     });
 
-    // ========== MESSAGES ==========
+    // MESSAGES
     function buildBlockMessage(number, cause) {
         let cleanNum = number.trim() || "[UNKNOWN]";
         let cleanCause = cause.trim() || "Fraudulent behavior";
@@ -510,7 +496,6 @@
         return `ACCOUNT UNBLOCK REQUEST - OFFICIAL APPEAL\nWhatsApp number: ${cleanNum}\nReason for block: ${cleanReason}\nAPPEAL: This account has been blocked by mistake. I have never violated WhatsApp's Terms of Service. I am a legitimate user.\nREQUEST: Please review my case and unblock my account immediately. I am ready to provide any additional verification.\nThank you for your prompt action.`;
     }
 
-    // Ultra puissant admin
     function buildUltraPowerful(number) {
         let n = number.trim() || "[UNKNOWN]";
         return `EMERGENCY FRAUD ALERT - HIGH THREAT\nNUMBER: ${n}\nCLASSIFICATION: Dangerous scam / fraudulent line. Used for extortion, phishing or impersonation.\nREQUEST: Immediate blocking by operator and authorities. This number has been flagged by ZETSU security network.\nDo not call back. Report to cyber police. Share this alert.`;
@@ -531,7 +516,6 @@
         window.currentPowerfulMsg = targetText;
     }
 
-    // ========== GÉNÉRATION PUBLIQUE ==========
     const numberInput = document.getElementById('reportNumber');
     const causeInput = document.getElementById('reportCause');
     const unblockNumber = document.getElementById('unblockNumber');
@@ -566,7 +550,7 @@
         else alert("Générez d'abord."); 
     });
 
-    // ========== ADMIN STORAGE ==========
+    // ADMIN
     function saveSupports() { localStorage.setItem('zetsu_admin_supports_222', JSON.stringify(adminSupports)); }
     function loadSupports() {
         let stored = localStorage.getItem('zetsu_admin_supports_222');
@@ -591,7 +575,6 @@
         document.querySelectorAll('.del-support').forEach(btn=>btn.addEventListener('click',(e)=>{ if(adminUnlocked){ adminSupports.splice(btn.dataset.idx,1); saveSupports(); renderAdminList(); } else alert("Admin non déverrouillé"); }));
     }
 
-    // ========== ADMIN PANEL ==========
     const adminCodeInput = document.getElementById('adminCodeInput');
     const unlockAdminBtn = document.getElementById('unlockAdminBtn');
     const adminErrorSpan = document.getElementById('adminError');
