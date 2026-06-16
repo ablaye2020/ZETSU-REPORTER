@@ -22,15 +22,16 @@
             padding: 1.5rem;
         }
 
-        .video-background {
+        /* FOND AVEC VOTRE PHOTO */
+        .bg-image {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background: url('C4048994-7FB1-487A-9A7F-838CF8BBFF98.png') no-repeat center center/cover;
             z-index: -2;
-            filter: grayscale(30%) contrast(1.1) brightness(0.85);
+            filter: grayscale(30%) contrast(1.05) brightness(0.8);
         }
 
         .overlay-monochrome {
@@ -39,7 +40,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.55);
+            background: rgba(0, 0, 0, 0.5);
             z-index: -1;
         }
 
@@ -303,10 +304,11 @@
 </head>
 <body>
 
-    <video autoplay muted loop playsinline class="video-background">
-        <source src="IMG_7494.MOV" type="video/mp4">
-    </video>
+    <!-- FOND AVEC VOTRE PHOTO -->
+    <div class="bg-image"></div>
     <div class="overlay-monochrome"></div>
+
+    <!-- MUSIQUE -->
     <audio id="bgMusic" loop preload="auto">
         <source src="ma_musique.mp3.m4a" type="audio/mp4">
     </audio>
@@ -324,9 +326,11 @@
 
     <div id="mainSiteContent" style="display:none;">
         <div class="zetsu-world">
-            <!-- BANNIÈRE LUFFY GEAR 5 AVEC LIEN EN LIGNE FIABLE -->
+            <!-- BANNIÈRE LUFFY GEAR 5 -->
             <div class="luffy-banner">
-                <img src="https://media.tenor.com/xB5h5V5V5V0AAAAi/luffy-gear-5.gif" alt="Luffy Gear 5" style="height:70px; width:auto; border-radius:50%; object-fit:cover; border:2px solid #ffcc66; box-shadow:0 0 20px rgba(255,200,100,0.3); animation:pulseGlow 2s ease-in-out infinite;">
+                <img src="https://i.pinimg.com/originals/1a/2b/3c/4d/5e/6f/7g/8h/9i/0j/1a2b3c4d5e6f7g8h9i0j.gif" alt="Luffy Gear 5" 
+                     onerror="this.src='https://media.tenor.com/xB5h5V5V5V0AAAAi/luffy-gear-5.gif'; this.onerror=null;"
+                     style="height:70px; width:auto; border-radius:50%; object-fit:cover; border:2px solid #ffcc66; box-shadow:0 0 20px rgba(255,200,100,0.3); animation:pulseGlow 2s ease-in-out infinite;">
                 <h1>⚡ <span>ZETSU</span> REPORTER ⚡</h1>
             </div>
 
