@@ -4,7 +4,7 @@ B L A C K - T O B I ~ Z E T S U
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ZETSU REPORTER | Générateur de blocage</title>
+    <title>ZETSU REPORTER | Générateur de blocage WhatsApp</title>
     <style>
         * {
             margin: 0;
@@ -146,29 +146,34 @@ B L A C K - T O B I ~ Z E T S U
             margin-bottom: 1.5rem;
         }
         .quick-btns button {
-            padding: 0.9rem;
+            padding: 0.9rem 1rem;
             border-radius: 2rem;
             border: none;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: 0.2s;
             color: white;
+            text-align: left;
         }
         .quick-btns button:hover {
             transform: scale(0.97);
         }
-        .btn-ultra {
+        .btn-victim {
             background: linear-gradient(100deg, #8b1a1a, #4a0808);
             border: 1px solid #ff4444;
         }
-        .btn-official {
+        .btn-parent {
             background: linear-gradient(100deg, #1a4a6e, #0a2a4a);
             border: 1px solid #4488ff;
         }
-        .btn-short {
+        .btn-business {
             background: linear-gradient(100deg, #5a3a1a, #3a2a0a);
             border: 1px solid #ffaa44;
+        }
+        .btn-admin-msg {
+            background: linear-gradient(100deg, #4a1a4a, #2a0a2a);
+            border: 1px solid #cc66ff;
         }
 
         .input-group {
@@ -225,17 +230,19 @@ B L A C K - T O B I ~ Z E T S U
             background: #0a0a0acc;
             border-radius: 1.5rem;
             padding: 1.2rem;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.8rem;
-            line-height: 1.45;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            line-height: 1.5;
             color: #f0f0f0;
             white-space: pre-wrap;
+            max-height: 450px;
+            overflow-y: auto;
         }
         .typing-cursor {
             display: inline-block;
             width: 2px;
             height: 1.2rem;
-            background-color: #cccccc;
+            background-color: #ff4444;
             vertical-align: middle;
             animation: blink 1s step-end infinite;
         }
@@ -305,15 +312,15 @@ B L A C K - T O B I ~ Z E T S U
         }
 
         .admin-gen-area {
-            background: #1a0a0a;
+            background: #1a0a1a;
             border-radius: 1.2rem;
             padding: 1rem;
             margin: 0.8rem 0;
-            border-left: 3px solid #ff4444;
+            border-left: 3px solid #cc66ff;
         }
         .admin-gen-area .admin-msg-preview {
-            font-family: monospace;
-            font-size: 0.7rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.6rem;
             color: #ffddbb;
             white-space: pre-wrap;
             max-height: 150px;
@@ -325,8 +332,8 @@ B L A C K - T O B I ~ Z E T S U
             border-radius: 1.2rem;
             padding: 0.8rem;
             margin-bottom: 0.8rem;
-            font-family: monospace;
-            font-size: 0.75rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.65rem;
             color: #f5cfb5;
             word-break: break-word;
             border-left: 3px solid #ff4444;
@@ -365,16 +372,13 @@ B L A C K - T O B I ~ Z E T S U
             text-align: center;
             margin-top: 1rem;
         }
-        .message-counter {
-            color: #ffaa66;
-            font-size: 0.7rem;
-            margin-bottom: 0.5rem;
-        }
         @media (max-width: 850px) {
             .card { padding: 1.5rem; }
             .logo { font-size: 2rem; }
             .luffy-banner h1 { font-size: 1.1rem; }
             .luffy-banner img { height: 55px; width: 55px; }
+            .generated-message { font-size: 0.6rem; max-height: 300px; }
+            .quick-btns button { font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -410,20 +414,29 @@ B L A C K - T O B I ~ Z E T S U
                 <!-- ZONE PUBLIQUE -->
                 <div class="card user-zone">
                     <div class="logo">𝐙𝐄𝐓𝐒𝐔</div>
-                    <div class="tagline">🔹 Générez instantanément un message de blocage ultra convaincant</div>
+                    <div class="tagline">🔹 Générez un message de blocage avec vos émotions</div>
 
                     <div class="quick-btns">
-                        <button class="btn-ultra" id="genUltraBtn">🔴 MESSAGE ULTRA PUISSANT (CRITICAL)</button>
-                        <button class="btn-official" id="genOfficialBtn">📜 DEMANDE OFFICIELLE À WHATSAPP</button>
-                        <button class="btn-short" id="genShortBtn">⚡ VERSION COURTE & PERCUTANTE</button>
+                        <button class="btn-victim" id="genVictimBtn">😰 Victime de menaces de mort</button>
+                        <button class="btn-parent" id="genParentBtn">👨‍👩‍👧 Parent inquiet pour son enfant</button>
+                        <button class="btn-business" id="genBusinessBtn">💼 Commerçant victime d'arnaque</button>
+                        <button class="btn-admin-msg" id="genAdminMsgBtn">⚡ Version ADMIN ultra puissante</button>
                     </div>
 
                     <div class="input-group">
                         <label>📞 Numéro à signaler :</label>
-                        <input type="text" id="reportNumber" placeholder="+33756987123 ou +221709000000" value="+221709000000">
+                        <input type="text" id="reportNumber" placeholder="+221709000000" value="+221709000000">
+                    </div>
+                    <div class="input-group">
+                        <label>📧 Votre email :</label>
+                        <input type="text" id="userEmail" placeholder="votre@email.com" value="victime@email.com">
+                    </div>
+                    <div class="input-group">
+                        <label>👤 Votre nom :</label>
+                        <input type="text" id="userName" placeholder="Votre nom" value="Jean Dupont">
                     </div>
 
-                    <button id="generateCustomBtn" class="btn-primary">🔴 GÉNÉRER AVEC CE NUMÉRO</button>
+                    <button id="generateCustomBtn" class="btn-primary">🔴 GÉNÉRER AVEC CES INFOS</button>
 
                     <div id="messageZone" style="margin-top: 1.5rem; display: none;">
                         <div class="coding-message-container">
@@ -445,25 +458,25 @@ B L A C K - T O B I ~ Z E T S U
                     <div class="admin-lock">
                         <label style="color:#ffbc8c;">🔐 Code admin :</label>
                         <div style="display:flex; gap:0.4rem; margin-top:6px;">
-                            <input type="password" id="adminCodeInput" placeholder="Entrez le code" style="background:#2a2a2a; border:none; border-radius:2rem; padding:0.5rem 1rem; color:white; width:70%;">
+                            <input type="password" id="adminCodeInput" placeholder="222200" style="background:#2a2a2a; border:none; border-radius:2rem; padding:0.5rem 1rem; color:white; width:70%;">
                             <button id="unlockAdminBtn" style="background:#666; border:none; border-radius:2rem; padding:0.5rem 1rem; font-weight:bold; cursor:pointer; color:white;">Déverrouiller</button>
                         </div>
                         <div id="adminError" style="color:#ff7a5c; font-size:0.7rem; margin-top:6px;"></div>
                     </div>
 
                     <div id="adminProtectedPanel" class="admin-content">
-                        <div style="background:#1a0a0a; border-radius:1.2rem; padding:1rem; margin-bottom:1rem; border-left:3px solid #ff4444;">
-                            <label style="color:#ffaa66; font-weight:700;">⚡ GÉNÉRATEUR ADMIN ULTRA PUISSANT</label>
+                        <div class="admin-gen-area">
+                            <label style="color:#cc66ff; font-weight:700;">⚡ GÉNÉRATEUR ADMIN ULTRA PUISSANT</label>
                             <div style="display:flex; gap:8px; margin:10px 0;">
                                 <input type="text" id="adminQuickNumber" placeholder="+Numéro" style="flex:2; background:#1f1a24; border:none; border-radius:2rem; padding:10px; color:white;">
-                                <button id="generateUltraPowerfulBtn" style="background:#8b1a1a; border:none; border-radius:2rem; padding:0.8rem 1.5rem; color:white; font-weight:bold; cursor:pointer;">ULTRA +</button>
+                                <button id="generateUltraPowerfulBtn" style="background:#6a1a6a; border:none; border-radius:2rem; padding:0.8rem 1.5rem; color:white; font-weight:bold; cursor:pointer;">ULTRA +</button>
                             </div>
-                            <div id="ultraMessagePreview" style="font-family:monospace; font-size:0.7rem; color:#ffddbb; white-space:pre-wrap; max-height:150px; overflow-y:auto; background:#0a0a0a; padding:10px; border-radius:1rem;"></div>
+                            <div id="ultraMessagePreview" style="font-family:'Courier New',monospace; font-size:0.6rem; color:#ffddbb; white-space:pre-wrap; max-height:150px; overflow-y:auto; background:#0a0a0a; padding:10px; border-radius:1rem;"></div>
                         </div>
 
                         <hr>
                         <label style="color:#dddddd;">📌 Ajouter un support personnalisé</label>
-                        <textarea id="newSupportText" class="admin-msg-input" rows="2" placeholder="FRAUD ALERT: This number is extremely dangerous..."></textarea>
+                        <textarea id="newSupportText" class="admin-msg-input" rows="2" placeholder="WHATSAPP SUPPORT, I am writing to you because..."></textarea>
                         <button id="addSupportBtn" class="btn-primary" style="background:#5a2e2e;">➕ DÉPOSER</button>
                         <hr>
                         <div><strong style="color:#ff9f6e;">📚 SUPPORTS OFFICIELS</strong></div>
@@ -482,7 +495,6 @@ B L A C K - T O B I ~ Z E T S U
         const ADMIN_SECRET = "222200";
         let adminUnlocked = false;
         let adminSupports = [];
-        let currentNumber = "+221709000000";
 
         // DOM
         const globalLockDiv = document.getElementById('globalLockScreen');
@@ -509,61 +521,105 @@ B L A C K - T O B I ~ Z E T S U
             document.body.addEventListener('click', () => bgMusic.play(), { once: true });
         }
 
-        // ========== MESSAGES ULTRA CONVAINCANTS ==========
-        function buildUltraMessage(number) {
-            let n = number.trim() || "[UNKNOWN]";
-            return `EMERGENCY FRAUD ALERT - CRITICAL THREAT LEVEL
-NUMBER: ${n}
-CLASSIFICATION: Confirmed criminal activity - extortion, phishing, identity theft
-EVIDENCE: Multiple victims have reported this number for fraudulent behavior
-REQUEST: Immediate permanent blocking by WhatsApp security team
-RISK LEVEL: CRITICAL - This number actively targets innocent users
-ACTION: Block without delay. Report to cyber police. Protect the community.
-This alert has been verified by ZETSU security network.`;
+        // ========== MESSAGES HUMAINS AVEC ÉMOTIONS ==========
+
+        function buildVictimMessage(num, email, name) {
+            let n = num.trim() || "+221709000000";
+            let e = email.trim() || "victime@email.com";
+            let nm = name.trim() || "Jean Dupont";
+            return `WHATSAPP SECURITY TEAM,
+
+I am writing to you because I am genuinely scared and angry. This number ${n} has been harassing me for weeks. They send me death threats, they call me at 3am, they pretend to be the police. I can't sleep anymore.
+
+I have screenshots of everything. I have call logs. I have voice messages where they threaten to kill my family.
+
+Please, I am begging you, BLOCK THIS NUMBER PERMANENTLY. This person is dangerous. They are doing this to other people too. I am not the only victim.
+
+I have already filed a police report.
+
+Please WhatsApp, do something. Protect your users. This is a criminal.
+
+I am sending you all the evidence. Please respond urgently. I am scared for my life.
+
+Sincerely,
+${nm}
+${e}`;
         }
 
-        function buildOfficialMessage(number) {
-            let n = number.trim() || "[UNKNOWN]";
-            return `OFFICIAL COMPLAINT - URGENT BLOCK REQUEST
-To the WhatsApp Security Department,
-Phone number: ${n}
-This number has been reported for fraudulent activities including:
-- Phishing attempts
-- Identity theft
-- Extortion and threats
-We request an immediate and permanent block of this number to protect the community.
-All information provided is accurate and verified.
-Legal action may follow if no action is taken.
-Please respond urgently.`;
+        function buildParentMessage(num, email, name) {
+            let n = num.trim() || "+221709000000";
+            let e = email.trim() || "parent@email.com";
+            let nm = name.trim() || "Marie Martin";
+            return `WHATSAPP SUPPORT,
+
+This is about my child. Someone is using this number ${n} to send threats and inappropriate messages to my 14-year-old daughter. She is traumatized. She cries every night. She doesn't want to go to school anymore.
+
+I have all the screenshots. I have the phone records. I have reported this to the police.
+
+Please, I am a parent begging you. BLOCK THIS NUMBER. This person is a predator. They are targeting children.
+
+I know you have rules. I know you need evidence. I have everything. Just please, block this number before another child gets hurt.
+
+I am sending you all the proof. Please act now.
+
+A desperate parent,
+${nm}
+${e}`;
         }
 
-        function buildShortMessage(number) {
-            let n = number.trim() || "[UNKNOWN]";
-            return `FRAUD REPORT - BLOCK THIS NUMBER
-Number: ${n}
-Reason: Confirmed scam, threats, identity fraud
-Urgency: HIGH
-Evidence: Multiple victim reports
-Request: Immediate blocking
-Action: Block now. Report to authorities.
-ZETSU security network has flagged this number.`;
+        function buildBusinessMessage(num, email, name) {
+            let n = num.trim() || "+221709000000";
+            let e = email.trim() || "business@email.com";
+            let nm = name.trim() || "Pierre Dubois";
+            return `WHATSAPP BUSINESS TEAM,
+
+I am writing to you because I am losing my business. This number ${n} is impersonating me, scamming my clients, stealing my reputation. They are using my name, my logo, everything.
+
+My clients are calling me angry. They think I am a thief. I have lost thousands of dollars. I have lost my credibility.
+
+I have reported this to the police. I have all the proof. I have screenshots, recordings, everything.
+
+Please WhatsApp, I am BEGGING you. BLOCK THIS NUMBER. This person is destroying my life.
+
+I am a honest businessman. I have been using WhatsApp for 10 years. I have never had any problem. But this person is ruining everything.
+
+Please act now. I am sending you all the evidence. I need your help.
+
+Sincerely,
+${nm}
+${e}
+Phone: ${n}`;
         }
 
-        // ADMIN ULTRA PUISSANT (encore plus convaincant)
-        function buildAdminUltraMessage(number) {
-            let n = number.trim() || "[UNKNOWN]";
-            return `⚠️ URGENT FRAUD ALERT - ZETSU SECURITY NETWORK
-TARGET NUMBER: ${n}
-THREAT LEVEL: MAXIMUM (CRITICAL)
-OFFENSE: Organized fraud, extortion, identity theft, phishing
-VICTIMS: Multiple confirmed reports from different countries
-EVIDENCE: Call logs, SMS threats, impersonation of authorities
-REQUEST TO WHATSAPP: IMMEDIATE PERMANENT BLOCK
-LEGAL BASIS: Violation of Terms of Service, criminal activity
-WARNING: This number is actively targeting vulnerable users
-ACTION: Block now. Report to international cyber crime unit.
-This alert is issued by ZETSU - a community protection network.
-We take full responsibility for this report. All information is verified.`;
+        function buildAdminUltraMessage(num, email, name) {
+            let n = num.trim() || "+221709000000";
+            let e = email.trim() || "admin@zetsu.com";
+            let nm = name.trim() || "ZETSU Security";
+            let caseNum = "ZETSU-" + Math.floor(Math.random() * 90000 + 10000);
+            return `WHATSAPP SECURITY TEAM - URGENT CRIMINAL REPORT
+
+My name is ${nm} and I am writing to you because I am in a state of extreme distress.
+
+For the past several weeks, I have been receiving DEATH THREATS and EXTORTION demands from this number: ${n}
+
+They know my address. They know my family. They know where I work. I am terrified for my safety and the safety of my loved ones.
+
+I have screenshots of every single threat. I have voice messages. I have call logs at 2am, 3am, 4am. I can't sleep. I can't eat. I am living in fear.
+
+I have filed a police complaint. The police are investigating.
+
+But I need your help too. Please WhatsApp, BLOCK THIS NUMBER PERMANENTLY. This person is a criminal. They are doing this to other people. I have found at least 5 other victims.
+
+I am sending you ALL the evidence in this message. I am attaching screenshots, recordings, everything.
+
+Please don't ignore this. Please protect your users. Please block this number before someone gets hurt.
+
+I am begging you. This is not a joke. This is my life.
+
+Sincerely,
+${nm}
+${e}
+Case Reference: ${caseNum}`;
         }
 
         // ========== ANIMATION CODAGE ==========
@@ -576,41 +632,55 @@ We take full responsibility for this report. All information is verified.`;
             for (let i = 0; i < targetText.length; i++) {
                 displayed += targetText[i];
                 targetElement.innerHTML = displayed + '<span class="typing-cursor"></span>';
-                await new Promise(r => setTimeout(r, Math.floor(Math.random() * 20) + 8));
+                await new Promise(r => setTimeout(r, Math.floor(Math.random() * 15) + 5));
             }
             targetElement.innerHTML = displayed;
             window.currentPowerfulMsg = targetText;
         }
 
-        // ========== GÉNÉRATION PUBLIQUE ==========
+        // ========== GÉNÉRATION ==========
         const reportNumber = document.getElementById('reportNumber');
+        const userEmail = document.getElementById('userEmail');
+        const userName = document.getElementById('userName');
         const dynamicMsgBox = document.getElementById('dynamicMessageBox');
         const copyBtn = document.getElementById('copyFinalMsg');
         const whatsappBtn = document.getElementById('whatsappFinalBtn');
 
-        // Boutons rapides
-        document.getElementById('genUltraBtn').addEventListener('click', () => {
-            let num = reportNumber.value.trim() || "+221709000000";
-            let msg = buildUltraMessage(num);
+        function getInfos() {
+            return {
+                num: reportNumber.value.trim() || "+221709000000",
+                email: userEmail.value.trim() || "victime@email.com",
+                name: userName.value.trim() || "Jean Dupont"
+            };
+        }
+
+        document.getElementById('genVictimBtn').addEventListener('click', () => {
+            let infos = getInfos();
+            let msg = buildVictimMessage(infos.num, infos.email, infos.name);
             animateCodingMessage(msg, dynamicMsgBox);
         });
 
-        document.getElementById('genOfficialBtn').addEventListener('click', () => {
-            let num = reportNumber.value.trim() || "+221709000000";
-            let msg = buildOfficialMessage(num);
+        document.getElementById('genParentBtn').addEventListener('click', () => {
+            let infos = getInfos();
+            let msg = buildParentMessage(infos.num, infos.email, infos.name);
             animateCodingMessage(msg, dynamicMsgBox);
         });
 
-        document.getElementById('genShortBtn').addEventListener('click', () => {
-            let num = reportNumber.value.trim() || "+221709000000";
-            let msg = buildShortMessage(num);
+        document.getElementById('genBusinessBtn').addEventListener('click', () => {
+            let infos = getInfos();
+            let msg = buildBusinessMessage(infos.num, infos.email, infos.name);
+            animateCodingMessage(msg, dynamicMsgBox);
+        });
+
+        document.getElementById('genAdminMsgBtn').addEventListener('click', () => {
+            let infos = getInfos();
+            let msg = buildAdminUltraMessage(infos.num, infos.email, infos.name);
             animateCodingMessage(msg, dynamicMsgBox);
         });
 
         document.getElementById('generateCustomBtn').addEventListener('click', () => {
-            let num = reportNumber.value.trim();
-            if (!num) { alert("Entrez un numéro."); return; }
-            let msg = buildUltraMessage(num);
+            let infos = getInfos();
+            let msg = buildVictimMessage(infos.num, infos.email, infos.name);
             animateCodingMessage(msg, dynamicMsgBox);
         });
 
@@ -632,9 +702,9 @@ We take full responsibility for this report. All information is verified.`;
             if (stored) try { adminSupports = JSON.parse(stored); } catch (e) { adminSupports = []; }
             if (!adminSupports.length) {
                 adminSupports = [
-                    "FRAUD ALERT: This number impersonates bank agents. Request immediate block. Report to authorities. ZETSU verified.",
-                    "URGENT: This number sends death threats and extortion. Block now. Inform cyber police. Multiple victims.",
-                    "SCAM WARNING: Fake technical support. Do not share any data. Block this line. ZETSU security network."
+                    "WHATSAPP SUPPORT, I am a victim of harassment. Please block this number. I am scared.",
+                    "URGENT: This number is threatening my child. Please block immediately.",
+                    "FRAUD ALERT: This number is scamming my clients. Please block."
                 ];
                 saveSupports();
             }
@@ -697,17 +767,13 @@ We take full responsibility for this report. All information is verified.`;
                 renderAdminList(); }
         });
 
-        // Générateur admin ultra puissant
         generateUltraBtn.addEventListener('click', () => {
             let num = adminQuickNumber.value.trim();
             if (!num) { alert("Entrez un numéro"); return; }
-            let ultraMsg = buildAdminUltraMessage(num);
+            let infos = getInfos();
+            let ultraMsg = buildAdminUltraMessage(num, infos.email, infos.name);
             ultraPreview.innerText = ultraMsg;
-            // L'animer dans l'aperçu admin avec effet
             animateCodingMessage(ultraMsg, ultraPreview);
-            // Aussi la mettre dans le message principal pour copier
-            window.currentPowerfulMsg = ultraMsg;
-            // Remplir le champ de l'accueil aussi
             reportNumber.value = num;
         });
 
@@ -717,7 +783,7 @@ We take full responsibility for this report. All information is verified.`;
 
         // Message par défaut au chargement
         setTimeout(() => {
-            let defaultMsg = buildUltraMessage("+221709000000");
+            let defaultMsg = buildVictimMessage("+221709000000", "victime@email.com", "Jean Dupont");
             animateCodingMessage(defaultMsg, dynamicMsgBox);
         }, 500);
     </script>
