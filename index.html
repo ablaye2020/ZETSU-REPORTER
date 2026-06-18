@@ -4,7 +4,7 @@ B L A C K - T O B I ~ Z E T S U
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ZETSU REPORTER | Blocage & Déblocage</title>
+    <title>ZETSU REPORTER | Générateur de blocage</title>
     <style>
         * {
             margin: 0;
@@ -23,7 +23,6 @@ B L A C K - T O B I ~ Z E T S U
             padding: 1.5rem;
         }
 
-        /* FOND AVEC VOTRE NOUVELLE IMAGE */
         .bg-image {
             position: fixed;
             top: 0;
@@ -35,7 +34,6 @@ B L A C K - T O B I ~ Z E T S U
             filter: brightness(0.95) contrast(1.05);
         }
 
-        /* OVERLAY LÉGER POUR LISIBILITÉ */
         .overlay-light {
             position: fixed;
             top: 0;
@@ -53,7 +51,6 @@ B L A C K - T O B I ~ Z E T S U
             z-index: 5;
         }
 
-        /* BANNIÈRE LUFFY AVEC VOTRE IMAGE */
         .luffy-banner {
             width: 100%;
             background: rgba(0, 0, 0, 0.55);
@@ -142,62 +139,36 @@ B L A C K - T O B I ~ Z E T S U
             opacity: 0.95;
         }
 
-        .double-btns {
+        .quick-btns {
             display: flex;
-            gap: 12px;
-            margin-bottom: 1.2rem;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 1.5rem;
         }
-        .double-btns button {
-            flex: 1;
-            padding: 0.6rem;
+        .quick-btns button {
+            padding: 0.9rem;
             border-radius: 2rem;
             border: none;
             font-weight: 700;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: 0.2s;
-            font-size: 0.85rem;
-        }
-        .btn-block {
-            background: #8b2c2c;
             color: white;
         }
-        .btn-unblock {
-            background: #2c6e8b;
-            color: white;
-        }
-        .double-btns button:hover {
+        .quick-btns button:hover {
             transform: scale(0.97);
         }
-        .double-btns .active-mode {
-            box-shadow: 0 0 15px rgba(255, 200, 100, 0.4);
-            border: 1px solid #ffcc66;
+        .btn-ultra {
+            background: linear-gradient(100deg, #8b1a1a, #4a0808);
+            border: 1px solid #ff4444;
         }
-
-        .zetsu-scroll {
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 1.5rem;
-            padding: 1rem;
-            margin-bottom: 1.8rem;
-            height: 100px;
-            overflow: hidden;
-            position: relative;
+        .btn-official {
+            background: linear-gradient(100deg, #1a4a6e, #0a2a4a);
+            border: 1px solid #4488ff;
         }
-        .scrolling-quotes {
-            display: flex;
-            flex-direction: column;
-            animation: scrollUp 18s linear infinite;
-        }
-        .scrolling-quotes p {
-            color: #ffddbb;
-            font-size: 0.8rem;
-            padding: 6px 12px;
-            margin: 3px 0;
-            border-left: 2px solid #ffaa44;
-            font-style: italic;
-        }
-        @keyframes scrollUp {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
+        .btn-short {
+            background: linear-gradient(100deg, #5a3a1a, #3a2a0a);
+            border: 1px solid #ffaa44;
         }
 
         .input-group {
@@ -210,8 +181,7 @@ B L A C K - T O B I ~ Z E T S U
             margin-bottom: 0.4rem;
             font-size: 0.85rem;
         }
-        .input-group input,
-        .input-group textarea {
+        .input-group input {
             width: 100%;
             background: rgba(20, 18, 25, 0.9);
             border: none;
@@ -223,8 +193,7 @@ B L A C K - T O B I ~ Z E T S U
             transition: 0.25s;
             outline: none;
         }
-        .input-group input:focus,
-        .input-group textarea:focus {
+        .input-group input:focus {
             box-shadow: 0 0 0 2px rgba(200, 200, 200, 0.4);
             background: #1a1a2a;
         }
@@ -244,12 +213,6 @@ B L A C K - T O B I ~ Z E T S U
         .btn-primary:hover {
             background: linear-gradient(100deg, #555, #2a2a2a);
             transform: translateY(-2px);
-        }
-        .btn-red {
-            background: linear-gradient(100deg, #8b2c2c, #4a1010);
-        }
-        .btn-blue {
-            background: linear-gradient(100deg, #2c6e8b, #1a3a4a);
         }
 
         .coding-message-container {
@@ -277,8 +240,7 @@ B L A C K - T O B I ~ Z E T S U
             animation: blink 1s step-end infinite;
         }
         @keyframes blink {
-            0%,
-            100% { opacity: 1; }
+            0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
 
@@ -341,6 +303,23 @@ B L A C K - T O B I ~ Z E T S U
         .admin-content.active {
             display: block;
         }
+
+        .admin-gen-area {
+            background: #1a0a0a;
+            border-radius: 1.2rem;
+            padding: 1rem;
+            margin: 0.8rem 0;
+            border-left: 3px solid #ff4444;
+        }
+        .admin-gen-area .admin-msg-preview {
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: #ffddbb;
+            white-space: pre-wrap;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
         .support-item {
             background: #1e1a1fcc;
             border-radius: 1.2rem;
@@ -350,6 +329,7 @@ B L A C K - T O B I ~ Z E T S U
             font-size: 0.75rem;
             color: #f5cfb5;
             word-break: break-word;
+            border-left: 3px solid #ff4444;
         }
         .support-actions {
             display: flex;
@@ -385,33 +365,24 @@ B L A C K - T O B I ~ Z E T S U
             text-align: center;
             margin-top: 1rem;
         }
+        .message-counter {
+            color: #ffaa66;
+            font-size: 0.7rem;
+            margin-bottom: 0.5rem;
+        }
         @media (max-width: 850px) {
-            .card {
-                padding: 1.5rem;
-            }
-            .logo {
-                font-size: 2rem;
-            }
-            .luffy-banner h1 {
-                font-size: 1.1rem;
-            }
-            .double-btns button {
-                font-size: 0.7rem;
-            }
-            .luffy-banner img {
-                height: 55px;
-                width: 55px;
-            }
+            .card { padding: 1.5rem; }
+            .logo { font-size: 2rem; }
+            .luffy-banner h1 { font-size: 1.1rem; }
+            .luffy-banner img { height: 55px; width: 55px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- FOND AVEC VOTRE NOUVELLE IMAGE -->
     <div class="bg-image"></div>
     <div class="overlay-light"></div>
 
-    <!-- MUSIQUE -->
     <audio id="bgMusic" loop preload="auto">
         <source src="ma_musique.mp3.m4a" type="audio/mp4">
     </audio>
@@ -429,7 +400,6 @@ B L A C K - T O B I ~ Z E T S U
 
     <div id="mainSiteContent" style="display:none;">
         <div class="zetsu-world">
-            <!-- BANNIÈRE AVEC VOTRE IMAGE EN HAUT -->
             <div class="luffy-banner">
                 <img src="382B7C6E-FE95-4133-8E58-31505D0418D2.jpeg" alt="Luffy Gear 5"
                      onerror="this.src='https://media.tenor.com/xB5h5V5V5V0AAAAi/luffy-gear-5.gif'; this.onerror=null;">
@@ -440,48 +410,20 @@ B L A C K - T O B I ~ Z E T S U
                 <!-- ZONE PUBLIQUE -->
                 <div class="card user-zone">
                     <div class="logo">𝐙𝐄𝐓𝐒𝐔</div>
-                    <div class="tagline">🔹 Signalez un numéro frauduleux ou demandez le déblocage de votre compte</div>
+                    <div class="tagline">🔹 Générez instantanément un message de blocage ultra convaincant</div>
 
-                    <div class="zetsu-scroll">
-                        <div class="scrolling-quotes" id="quotesScroller">
-                            <p>⚔️ L'empire ZETSU ne recule devant aucune menace. La sécurité du peuple est notre devoir.</p>
-                            <p>🛡️ Un numéro signalé, c'est une fraude en moins. Chaque action compte.</p>
-                            <p>🔥 La vérité émerge toujours. Les fraudeurs tombent face à l'union des justiciers.</p>
-                            <p>📢 Ensemble, nous brisons les chaînes de l'arnaque. ZETSU protecteur.</p>
-                            <p>⚡ Le silence est complice. Signalez, bloquez, libérez la communauté.</p>
-                            <p>🕯️ ZETSU veille. Chaque signalement est une flèche contre l'ombre.</p>
-                            <p>⚔️ L'empire ZETSU ne recule devant aucune menace. La sécurité du peuple est notre devoir.</p>
-                        </div>
+                    <div class="quick-btns">
+                        <button class="btn-ultra" id="genUltraBtn">🔴 MESSAGE ULTRA PUISSANT (CRITICAL)</button>
+                        <button class="btn-official" id="genOfficialBtn">📜 DEMANDE OFFICIELLE À WHATSAPP</button>
+                        <button class="btn-short" id="genShortBtn">⚡ VERSION COURTE & PERCUTANTE</button>
                     </div>
 
-                    <div class="double-btns">
-                        <button id="modeBlockBtn" class="btn-block active-mode">🚫 SIGNALER / BLOQUER</button>
-                        <button id="modeUnblockBtn" class="btn-unblock">🔓 DÉBLOQUER MON COMPTE</button>
+                    <div class="input-group">
+                        <label>📞 Numéro à signaler :</label>
+                        <input type="text" id="reportNumber" placeholder="+33756987123 ou +221709000000" value="+221709000000">
                     </div>
 
-                    <div id="blockFields">
-                        <div class="input-group">
-                            <label>📞 Numéro frauduleux (avec indicatif) :</label>
-                            <input type="text" id="reportNumber" placeholder="+33756987123 ou +221709000000">
-                        </div>
-                        <div class="input-group">
-                            <label>📝 Cause / détails :</label>
-                            <textarea id="reportCause" rows="2" placeholder="Ex: menace, usurpation bancaire, tentative d'arnaque..."></textarea>
-                        </div>
-                    </div>
-
-                    <div id="unblockFields" style="display:none;">
-                        <div class="input-group">
-                            <label>📞 Votre numéro WhatsApp bloqué :</label>
-                            <input type="text" id="unblockNumber" placeholder="+33756987123">
-                        </div>
-                        <div class="input-group">
-                            <label>📝 Raison du déblocage :</label>
-                            <textarea id="unblockReason" rows="2" placeholder="Ex: compte bloqué par erreur, je n'ai jamais violé les règles..."></textarea>
-                        </div>
-                    </div>
-
-                    <button id="generateBtn" class="btn-primary btn-red">🔴 GÉNÉRER LE MESSAGE DE BLOCAGE</button>
+                    <button id="generateCustomBtn" class="btn-primary">🔴 GÉNÉRER AVEC CE NUMÉRO</button>
 
                     <div id="messageZone" style="margin-top: 1.5rem; display: none;">
                         <div class="coding-message-container">
@@ -510,16 +452,19 @@ B L A C K - T O B I ~ Z E T S U
                     </div>
 
                     <div id="adminProtectedPanel" class="admin-content">
-                        <label style="color:#dddddd;">📌 Déposer un support (convaincant)</label>
-                        <textarea id="newSupportText" class="admin-msg-input" rows="2" placeholder="FRAUD ALERT: This number is extremely dangerous. Block immediately. Report to police."></textarea>
-                        <button id="addSupportBtn" class="btn-primary" style="background:#5a2e2e;">➕ DÉPOSER</button>
-                        <hr>
-                        <label style="color:#dddddd;">⚡ GÉNÉRATEUR ULTRA PUISSANT (admin)</label>
-                        <div style="display:flex; gap:8px;">
-                            <input type="text" id="adminQuickNumber" placeholder="+Numéro" style="flex:2; background:#1f1a24; border:none; border-radius:2rem; padding:10px; color:white;">
-                            <button id="generateUltraPowerfulBtn" class="btn-primary" style="background:#8b3a3a; width:auto; padding:0.8rem 1.5rem;">ULTRA</button>
+                        <div style="background:#1a0a0a; border-radius:1.2rem; padding:1rem; margin-bottom:1rem; border-left:3px solid #ff4444;">
+                            <label style="color:#ffaa66; font-weight:700;">⚡ GÉNÉRATEUR ADMIN ULTRA PUISSANT</label>
+                            <div style="display:flex; gap:8px; margin:10px 0;">
+                                <input type="text" id="adminQuickNumber" placeholder="+Numéro" style="flex:2; background:#1f1a24; border:none; border-radius:2rem; padding:10px; color:white;">
+                                <button id="generateUltraPowerfulBtn" style="background:#8b1a1a; border:none; border-radius:2rem; padding:0.8rem 1.5rem; color:white; font-weight:bold; cursor:pointer;">ULTRA +</button>
+                            </div>
+                            <div id="ultraMessagePreview" style="font-family:monospace; font-size:0.7rem; color:#ffddbb; white-space:pre-wrap; max-height:150px; overflow-y:auto; background:#0a0a0a; padding:10px; border-radius:1rem;"></div>
                         </div>
-                        <div id="ultraMessagePreview" class="generated-message" style="margin-top:12px; font-size:0.7rem; padding:10px;"></div>
+
+                        <hr>
+                        <label style="color:#dddddd;">📌 Ajouter un support personnalisé</label>
+                        <textarea id="newSupportText" class="admin-msg-input" rows="2" placeholder="FRAUD ALERT: This number is extremely dangerous..."></textarea>
+                        <button id="addSupportBtn" class="btn-primary" style="background:#5a2e2e;">➕ DÉPOSER</button>
                         <hr>
                         <div><strong style="color:#ff9f6e;">📚 SUPPORTS OFFICIELS</strong></div>
                         <div id="adminSupportsList" style="max-height: 200px; overflow-y: auto; margin-top: 12px;"></div>
@@ -537,8 +482,9 @@ B L A C K - T O B I ~ Z E T S U
         const ADMIN_SECRET = "222200";
         let adminUnlocked = false;
         let adminSupports = [];
-        let currentMode = 'block';
+        let currentNumber = "+221709000000";
 
+        // DOM
         const globalLockDiv = document.getElementById('globalLockScreen');
         const mainContent = document.getElementById('mainSiteContent');
         const globalPassInput = document.getElementById('globalPassInput');
@@ -563,51 +509,64 @@ B L A C K - T O B I ~ Z E T S U
             document.body.addEventListener('click', () => bgMusic.play(), { once: true });
         }
 
-        // MODE
-        const modeBlockBtn = document.getElementById('modeBlockBtn');
-        const modeUnblockBtn = document.getElementById('modeUnblockBtn');
-        const blockFields = document.getElementById('blockFields');
-        const unblockFields = document.getElementById('unblockFields');
-        const generateBtn = document.getElementById('generateBtn');
-
-        modeBlockBtn.addEventListener('click', () => {
-            currentMode = 'block';
-            modeBlockBtn.classList.add('active-mode');
-            modeUnblockBtn.classList.remove('active-mode');
-            blockFields.style.display = 'block';
-            unblockFields.style.display = 'none';
-            generateBtn.textContent = '🔴 GÉNÉRER LE MESSAGE DE BLOCAGE';
-            generateBtn.className = 'btn-primary btn-red';
-        });
-
-        modeUnblockBtn.addEventListener('click', () => {
-            currentMode = 'unblock';
-            modeUnblockBtn.classList.add('active-mode');
-            modeBlockBtn.classList.remove('active-mode');
-            unblockFields.style.display = 'block';
-            blockFields.style.display = 'none';
-            generateBtn.textContent = '🔓 GÉNÉRER LA DEMANDE DE DÉBLOCAGE';
-            generateBtn.className = 'btn-primary btn-blue';
-        });
-
-        // MESSAGES
-        function buildBlockMessage(number, cause) {
-            let cleanNum = number.trim() || "[UNKNOWN]";
-            let cleanCause = cause.trim() || "Fraudulent behavior";
-            return `FRAUD & SCAM ALERT - OFFICIAL REPORT\nPhone number: ${cleanNum}\nIncident details: ${cleanCause}\nVERDICT: Confirmed malicious operation. This number is used for criminal activities (scams, threats, identity theft).\nACTION REQUIRED: Please block this number immediately to prevent further harm. Report to local authorities and telecom regulator.\nDo not answer. Share this warning.`;
-        }
-
-        function buildUnblockMessage(number, reason) {
-            let cleanNum = number.trim() || "[UNKNOWN]";
-            let cleanReason = reason.trim() || "My account was blocked by mistake";
-            return `ACCOUNT UNBLOCK REQUEST - OFFICIAL APPEAL\nWhatsApp number: ${cleanNum}\nReason for block: ${cleanReason}\nAPPEAL: This account has been blocked by mistake. I have never violated WhatsApp's Terms of Service. I am a legitimate user.\nREQUEST: Please review my case and unblock my account immediately. I am ready to provide any additional verification.\nThank you for your prompt action.`;
-        }
-
-        function buildUltraPowerful(number) {
+        // ========== MESSAGES ULTRA CONVAINCANTS ==========
+        function buildUltraMessage(number) {
             let n = number.trim() || "[UNKNOWN]";
-            return `EMERGENCY FRAUD ALERT - HIGH THREAT\nNUMBER: ${n}\nCLASSIFICATION: Dangerous scam / fraudulent line. Used for extortion, phishing or impersonation.\nREQUEST: Immediate blocking by operator and authorities. This number has been flagged by ZETSU security network.\nDo not call back. Report to cyber police. Share this alert.`;
+            return `EMERGENCY FRAUD ALERT - CRITICAL THREAT LEVEL
+NUMBER: ${n}
+CLASSIFICATION: Confirmed criminal activity - extortion, phishing, identity theft
+EVIDENCE: Multiple victims have reported this number for fraudulent behavior
+REQUEST: Immediate permanent blocking by WhatsApp security team
+RISK LEVEL: CRITICAL - This number actively targets innocent users
+ACTION: Block without delay. Report to cyber police. Protect the community.
+This alert has been verified by ZETSU security network.`;
         }
 
+        function buildOfficialMessage(number) {
+            let n = number.trim() || "[UNKNOWN]";
+            return `OFFICIAL COMPLAINT - URGENT BLOCK REQUEST
+To the WhatsApp Security Department,
+Phone number: ${n}
+This number has been reported for fraudulent activities including:
+- Phishing attempts
+- Identity theft
+- Extortion and threats
+We request an immediate and permanent block of this number to protect the community.
+All information provided is accurate and verified.
+Legal action may follow if no action is taken.
+Please respond urgently.`;
+        }
+
+        function buildShortMessage(number) {
+            let n = number.trim() || "[UNKNOWN]";
+            return `FRAUD REPORT - BLOCK THIS NUMBER
+Number: ${n}
+Reason: Confirmed scam, threats, identity fraud
+Urgency: HIGH
+Evidence: Multiple victim reports
+Request: Immediate blocking
+Action: Block now. Report to authorities.
+ZETSU security network has flagged this number.`;
+        }
+
+        // ADMIN ULTRA PUISSANT (encore plus convaincant)
+        function buildAdminUltraMessage(number) {
+            let n = number.trim() || "[UNKNOWN]";
+            return `⚠️ URGENT FRAUD ALERT - ZETSU SECURITY NETWORK
+TARGET NUMBER: ${n}
+THREAT LEVEL: MAXIMUM (CRITICAL)
+OFFENSE: Organized fraud, extortion, identity theft, phishing
+VICTIMS: Multiple confirmed reports from different countries
+EVIDENCE: Call logs, SMS threats, impersonation of authorities
+REQUEST TO WHATSAPP: IMMEDIATE PERMANENT BLOCK
+LEGAL BASIS: Violation of Terms of Service, criminal activity
+WARNING: This number is actively targeting vulnerable users
+ACTION: Block now. Report to international cyber crime unit.
+This alert is issued by ZETSU - a community protection network.
+We take full responsibility for this report. All information is verified.`;
+        }
+
+        // ========== ANIMATION CODAGE ==========
         async function animateCodingMessage(targetText, targetElement) {
             const msgZone = document.getElementById('messageZone');
             const dynamicBox = document.getElementById('dynamicMessageBox');
@@ -617,35 +576,41 @@ B L A C K - T O B I ~ Z E T S U
             for (let i = 0; i < targetText.length; i++) {
                 displayed += targetText[i];
                 targetElement.innerHTML = displayed + '<span class="typing-cursor"></span>';
-                await new Promise(r => setTimeout(r, Math.floor(Math.random() * 25) + 10));
+                await new Promise(r => setTimeout(r, Math.floor(Math.random() * 20) + 8));
             }
             targetElement.innerHTML = displayed;
             window.currentPowerfulMsg = targetText;
         }
 
-        const numberInput = document.getElementById('reportNumber');
-        const causeInput = document.getElementById('reportCause');
-        const unblockNumber = document.getElementById('unblockNumber');
-        const unblockReason = document.getElementById('unblockReason');
+        // ========== GÉNÉRATION PUBLIQUE ==========
+        const reportNumber = document.getElementById('reportNumber');
         const dynamicMsgBox = document.getElementById('dynamicMessageBox');
         const copyBtn = document.getElementById('copyFinalMsg');
         const whatsappBtn = document.getElementById('whatsappFinalBtn');
 
-        generateBtn.addEventListener('click', () => {
-            let msg;
-            if (currentMode === 'block') {
-                let num = numberInput.value,
-                    cause = causeInput.value;
-                if (!num.trim()) { alert("Numéro requis."); return; }
-                if (!cause.trim()) { alert("Cause requise."); return; }
-                msg = buildBlockMessage(num, cause);
-            } else {
-                let num = unblockNumber.value,
-                    reason = unblockReason.value;
-                if (!num.trim()) { alert("Votre numéro WhatsApp est requis."); return; }
-                if (!reason.trim()) { alert("Raison du déblocage requise."); return; }
-                msg = buildUnblockMessage(num, reason);
-            }
+        // Boutons rapides
+        document.getElementById('genUltraBtn').addEventListener('click', () => {
+            let num = reportNumber.value.trim() || "+221709000000";
+            let msg = buildUltraMessage(num);
+            animateCodingMessage(msg, dynamicMsgBox);
+        });
+
+        document.getElementById('genOfficialBtn').addEventListener('click', () => {
+            let num = reportNumber.value.trim() || "+221709000000";
+            let msg = buildOfficialMessage(num);
+            animateCodingMessage(msg, dynamicMsgBox);
+        });
+
+        document.getElementById('genShortBtn').addEventListener('click', () => {
+            let num = reportNumber.value.trim() || "+221709000000";
+            let msg = buildShortMessage(num);
+            animateCodingMessage(msg, dynamicMsgBox);
+        });
+
+        document.getElementById('generateCustomBtn').addEventListener('click', () => {
+            let num = reportNumber.value.trim();
+            if (!num) { alert("Entrez un numéro."); return; }
+            let msg = buildUltraMessage(num);
             animateCodingMessage(msg, dynamicMsgBox);
         });
 
@@ -659,18 +624,20 @@ B L A C K - T O B I ~ Z E T S U
             else alert("Générez d'abord.");
         });
 
-        // ADMIN
+        // ========== ADMIN ==========
         function saveSupports() { localStorage.setItem('zetsu_admin_supports_222', JSON.stringify(adminSupports)); }
 
         function loadSupports() {
             let stored = localStorage.getItem('zetsu_admin_supports_222');
             if (stored) try { adminSupports = JSON.parse(stored); } catch (e) { adminSupports = []; }
-            if (!adminSupports.length) adminSupports = [
-                "FRAUD ALERT: This number impersonates bank agents. Request immediate block. Report to authorities.",
-                "URGENT: This number sends death threats and extortion. Block now. Inform cyber police.",
-                "SCAM WARNING: Fake technical support. Do not share any data. Block this line."
-            ];
-            saveSupports();
+            if (!adminSupports.length) {
+                adminSupports = [
+                    "FRAUD ALERT: This number impersonates bank agents. Request immediate block. Report to authorities. ZETSU verified.",
+                    "URGENT: This number sends death threats and extortion. Block now. Inform cyber police. Multiple victims.",
+                    "SCAM WARNING: Fake technical support. Do not share any data. Block this line. ZETSU security network."
+                ];
+                saveSupports();
+            }
             renderAdminList();
         }
 
@@ -689,6 +656,7 @@ B L A C K - T O B I ~ Z E T S U
                     renderAdminList(); } else alert("Admin non déverrouillé"); }));
         }
 
+        // Admin unlock
         const adminCodeInput = document.getElementById('adminCodeInput');
         const unlockAdminBtn = document.getElementById('unlockAdminBtn');
         const adminErrorSpan = document.getElementById('adminError');
@@ -722,22 +690,36 @@ B L A C K - T O B I ~ Z E T S U
                 renderAdminList();
                 newSupportText.value = ""; }
         });
+
         clearAllAdminBtn.addEventListener('click', () => {
             if (adminUnlocked && confirm("Effacer tous les supports ?")) { adminSupports = [];
                 saveSupports();
                 renderAdminList(); }
         });
+
+        // Générateur admin ultra puissant
         generateUltraBtn.addEventListener('click', () => {
-            let num = adminQuickNumber.value;
+            let num = adminQuickNumber.value.trim();
             if (!num) { alert("Entrez un numéro"); return; }
-            let ultraMsg = buildUltraPowerful(num);
+            let ultraMsg = buildAdminUltraMessage(num);
             ultraPreview.innerText = ultraMsg;
+            // L'animer dans l'aperçu admin avec effet
             animateCodingMessage(ultraMsg, ultraPreview);
+            // Aussi la mettre dans le message principal pour copier
+            window.currentPowerfulMsg = ultraMsg;
+            // Remplir le champ de l'accueil aussi
+            reportNumber.value = num;
         });
 
         loadSupports();
         adminPanelDiv.classList.remove('active');
         adminUnlocked = false;
+
+        // Message par défaut au chargement
+        setTimeout(() => {
+            let defaultMsg = buildUltraMessage("+221709000000");
+            animateCodingMessage(defaultMsg, dynamicMsgBox);
+        }, 500);
     </script>
 </body>
 </html>
